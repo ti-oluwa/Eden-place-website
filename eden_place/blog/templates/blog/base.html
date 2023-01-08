@@ -1,0 +1,325 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+    {% block styles %}
+    {% endblock styles %}
+    {% block title %}
+    {% endblock title %}
+</head>
+<body>
+    <header>
+        <div class="container header_items">
+            <div class="header_logo">
+                <a href="{% url 'home' %}">Eden Place</a>
+            </div>
+
+            <div class="header_links">
+                <div class="header_link">
+                    <a href="{% url 'home' %}">Home</a>
+                </div>
+
+                <div class="header_link">
+                    <a href="{% url 'about' %}">About</a>
+                </div>
+
+                <div class="header_link">
+                    <a>Admissions</a>
+                    <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
+                    <div class="dropdown">
+                        <div class="dropdown_items">
+                            <a href="{% url 'enroll' %}"><img src="{% static 'images/enroll.jpg' %}" alt="enroll"></a>
+                            <a href="{% url 'enroll' %}">Enrollment</a>
+                        </div>
+                        <div class="dropdown_items">
+                            <a href="{% url 'faqs' %}"><img src="{% static 'images/curriculum.jpg' %}" alt="curriculum"></a>
+                            <a href="{% url 'faqs' %}">FAQs</a>
+                        </div>
+                        <div class="dropdown_items">
+                            <a href="{% url 'contact' %}"><img src="{% static 'images/never_stop_learning.jpg' %}" alt="pupils"></a>
+                            <a href="{% url 'contact' %}">Contact us</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header_link">
+                    <a>Academics</a>
+                    <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
+                    <div class="dropdown">
+                        <div class="dropdown_items">
+                            <a href="#"><img src="{% static 'images/enroll.jpg' %}" alt="enroll"></a>
+                            <a href="">Curriculae</a>
+                        </div>
+                        <div class="dropdown_items">
+                            <a href="#"><img src="{% static 'images/curriculum.jpg' %}" alt="curriculum"></a>
+                            <a href="">Open events</a>
+                        </div>
+                        <div class="dropdown_items">
+                            <a href="#"><img src="{% static 'images/never_stop_learning.jpg' %}" alt="pupils"></a>
+                            <a href="">Calendar</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header_link">
+                    <a href="{% url 'events' %}">Events</a>
+                </div>
+
+                <div id="nav_cb" class="header_link">
+                    <div class="round"></div>
+                    <div class="round"></div>
+                    <div class="round"></div>
+                    <div class="nav_collapse">
+                        <a href="#"></a><div class="nav_collapse_items">Home</div></a>
+                        <a href="#"></a><div class="nav_collapse_items">About</div></a>
+                        <a href="#"></a><div class="nav_collapse_items">Blog</div></a>
+                    </div>  
+                </div>
+            </div>
+
+            <div class="sub_container">
+                <div class="header_link">
+                    <a href="{% url 'login' %}">Log in</a>
+                </div>
+
+                <div class="header_link">
+                    <a href="{% url 'contact' %}">Contact</a>
+                </div>
+            </div>
+
+            <div class="hamburger_container">
+                <p>Menu</p>
+                <div class="hamburger">
+                    <div class="bars"></div>
+                    <div class="bars"></div>
+                    <div class="bars"></div>    
+                    <div class="bars"></div>
+                    <div class="bars"></div>
+                    <div class="bars"></div>    
+                    <div class="bars"></div>
+                    <div class="bars"></div>
+                    <div class="bars"></div>            
+                </div>
+            </div>
+            
+        </div>
+    </header>
+
+    <!-- Menu after nav collapses completely-->
+    <div class="main_menu">
+        <div class="menu_signin_btn">
+            <button type="button" id='login_btn'  href="">
+                Login
+            </button>
+        </div>
+        <div class="menu_items">
+            <a href="{% url 'home' %}">Home</a>
+        </div>
+        <div class="menu_items">
+            <a href="{% url 'about' %}">About</a>
+        </div>
+        <div class="menu_items">
+            <div id="drop_toggle1">
+                <p>Admissions</p>
+                <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
+            </div>
+            <div class="drop">
+                <div class="drop_item"><a href="{% url 'enroll' %}">Enrollment</a></div>
+                <div class="drop_item"><a href="{% url 'faqs' %}">FAQ's</a></div>
+                <div class="drop_item"><a href="{% url 'contact' %}">Contact us</a></div>
+            </div>    
+        </div>
+        <div class="menu_items">
+            <div  id="drop_toggle2">
+                <p>Academics</p>  
+                <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
+            </div>
+            <div class="drop">
+                <div class="drop_item"><a href="">Curriculae</a></div>
+                <div class="drop_item"><a href="">Open events</a></div>
+                <div class="drop_item"><a href="">Calendar</a></div>
+            </div>     
+        </div>
+        
+        <div class="menu_items">
+            <a href="{% url 'events' %}">Events</a>
+        </div>
+        <div class="menu_items">
+            <a href="{% url 'contact' %}">Contact us</a>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock content %}
+
+    <footer id="footer_container">
+        <div id="footer_content_wrapper">
+            <div id="footer_content">
+                <h1>Eden Place</h1>
+                <div class="sub_content">
+                    <ul class="footer_links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'events' %}">Events</a></li>
+                        <li><a href="{% url 'faqs' %}">FAQs</a></li>
+                        <li><a href="">Policies</a></li>
+                    </ul>
+                    <div class="contact_details">
+                        <p class="phone">
+                            Call us on:
+                            <a href="tel:+2348037383740">(+234)8037383740</a>
+                        </p>
+                        <hr>
+                        <div class="address">
+                            <p>
+                                10, Olayinka Bolarinwa Street, Off Oluomo2, Orimerunmu, Ogun, Nigeria.
+                            </p>
+                            <a href="https://maps.google.com/maps/dir//6.77469,3.403056/@6.77469,3.403056,17z">
+                                Get directions
+                                <img src="../../static/images/left-arrow.svg" alt="" style="width: clamp(10px, 2vw, 12px); height: clamp(10px, 2vw, 12px);">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="additional">
+            <div class="additional_links">
+                <a href="">Privacy policy</a>
+                <a href="{% url 'contact' %}">Contact us</a>
+                <a href="">Site map</a>
+            </div>
+            <p>Copyright &copy; 2022, ti_oluwa</p>
+        </div>
+    </footer>
+</body>
+
+<script type="text/javascript" src="{% static 'blog/jquery-3.6.1.min.js' %}"></script>
+<script type="text/javascript">
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+            const cookies = document.cookie.split(";");
+            for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+            }
+        }
+        return cookieValue;
+    };
+
+    function returnFileSize(number) {
+        if (number < 1024) {
+          return `${number} bytes`;
+        } else if (number >= 1024 && number < 1048576) {
+          return `${(number / 1024).toFixed(1)} KB`;
+        } else if (number >= 1048576) {
+          return `${(number / 1048576).toFixed(1)} MB`;
+        };
+    };
+
+    function fileSizeDoesNotExceed(file_size, max_file_size){
+        if (file_size > max_file_size){
+            return false;
+        }
+        return true;
+    }
+
+
+    //sets height of main menu on resize
+    window.addEventListener('resize', () => {
+        document.querySelector('.main_menu').style.height = (window.innerHeight - 80)+ 'px'
+    });
+
+    window.addEventListener('load', () => {
+        // sets the height of the main menu
+        document.querySelector('.main_menu').style.height = (window.innerHeight - 80)+ 'px'
+        document.getElementById('nav_cb').onclick = () => {
+            document.getElementsByClassName('nav_collapse')[0].classList.toggle('show');
+        };
+
+        // close nav_collapse on hover of other header links
+        document.querySelectorAll('.header_link')[2] && document.querySelectorAll('.header_link')[3].addEventListener('pointerover', () => {
+            document.getElementsByClassName('nav_collapse')[0].classList.remove('show');
+        });
+
+        // display and hide main menu on hamburger click
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.main_menu').classList.toggle('open_menu');
+            document.querySelector('body').classList.toggle('stop_scroll');
+            document.querySelector('#login_btn').classList.toggle('stop_anim');
+            document.querySelectorAll('.bars')[1].classList.toggle('fade');
+            document.querySelectorAll('.bars')[3].classList.toggle('fade');
+            document.querySelectorAll('.bars')[5].classList.toggle('fade');
+            document.querySelectorAll('.bars')[7].classList.toggle('fade');
+        });
+
+        document.getElementById('drop_toggle1').addEventListener('click', () => {
+            document.querySelectorAll('.drop')[0].classList.toggle('open_drop')
+            document.getElementById('drop_toggle1').classList.toggle('highlight')
+            var drop_items = document.querySelectorAll('.drop')[0].querySelectorAll('.drop_item')
+            for(var i = 0; i < drop_items.length; i++){
+                drop_items[i].classList.toggle('show_drop_item')
+            }
+        })
+
+        document.getElementById('drop_toggle2').addEventListener('click', () => {
+            document.querySelectorAll('.drop')[1].classList.toggle('open_drop')
+            document.getElementById('drop_toggle2').classList.toggle('highlight')
+            var drop_items = document.querySelectorAll('.drop')[1].querySelectorAll('.drop_item')
+            for(var i = 0; i < drop_items.length; i++){
+                drop_items[i].classList.toggle('show_drop_item')
+            }
+        })
+    });
+    
+    // show and hide nav_collapse
+    var ignoreClickOnMeElement = document.getElementsByClassName('nav_collapse')[0];
+    var ignoreClickOnMeElement1 = document.getElementsByClassName('header_link')[5];
+    window.addEventListener('click', function(event) {
+        var isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
+        var isClickInsideElement1 = ignoreClickOnMeElement1.contains(event.target);
+        if (!isClickInsideElement && !isClickInsideElement1) {
+            document.getElementsByClassName('nav_collapse')[0].classList.toggle('show');
+        };
+        // closes the main menu when the screen width > 828px
+        if(window.innerWidth > 828){
+            document.querySelector('.main_menu').classList.remove('open_menu');
+            document.querySelector('body').classList.remove('stop_scroll');
+            document.querySelector('#login_btn').classList.add('stop_anim');
+        };
+        
+    });
+    
+    // shows and hides header on scroll
+    var oldScrollPosition = 0;
+    window.addEventListener('scroll', (e) => {
+        isScrollOnMenu = document.querySelector('.main_menu').contains(e.target)
+        if (!isScrollOnMenu){
+            var scrollPosition = document.documentElement.scrollTop;
+            if (scrollPosition >= window.innerHeight * 0.5){
+                document.querySelector('header').classList.add('hide');
+                document.getElementsByClassName('nav_collapse')[0].classList.remove('show');
+                oldScrollPosition = scrollPosition;            
+            }
+            else{
+                document.querySelector('header').classList.remove('hide');
+                oldScrollPosition = scrollPosition;
+            };
+        };         
+    });  
+</script>
+{% block script %}
+{% endblock script %}
+</html>

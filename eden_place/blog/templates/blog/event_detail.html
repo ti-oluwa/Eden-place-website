@@ -1,0 +1,173 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+ {% block title %}   
+    <title>{{ event.title|title }} . Eden Place</title>
+{% endblock title %}
+
+{% block styles  %}
+    <link rel="stylesheet" href="../../static/blog/event_detail.css">
+{% endblock styles %}
+
+{% block content %}   
+    <div class="container">
+    
+        <div class="post_head">
+            <small>Published: {{ event.date|date:"d F Y" }}</small>
+            <h1>{{ event.title|title }}</h1>
+            {% comment %} <small>By: {{ event.author|title }}</small> {% endcomment %}
+            <div class="post_tags">
+                <img src="../../static/images/tag.svg" alt="" style="width: clamp(10px, 2vw, 12px); height: clamp(10px, 2vw, 12px);">
+                {% for tag in event.tags.all %}
+                <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="share_tab">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_full_path }}" style="background-color: #3177ea;" target="__blank">
+                <img src="../../static/images/facebook.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
+            </a>
+            <a href="https://twitter.com/intent/tweet?url={{ request.get_full_path }}" style="background-color: #fff;" target="__blank">
+                <img src="../../static/images/twitter.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
+            </a>
+            <a href="https://www.linkedin.com/shareArticle?url={{ request.get_full_path }}" style="background-color: #2d79b5;" target="__blank">
+                <img src="../../static/images/linkedin.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
+            </a>
+        </div>
+        {% if event.content|length < 1000 %}
+        <section class="post_body">
+            <div class="post_main_img">
+                <img src="{{ event.main_image.url }}" alt="">
+                <div class="frame"></div>
+            </div>
+
+            <div class="post_content">
+                <p>
+                    {{ event.content|toHTML5 }}
+                </p>
+            </div>
+        </section>
+        {% else %}
+        <section class="post_body2">
+            <div class="post_main_img">
+                <img src="{{ event.main_image.url }}" alt="">
+            </div>
+
+            <div class="post_content">
+                <p>
+                    {{ event.content|toHTML5 }}
+                </p>
+            </div>
+        </section>
+        {% endif %}
+
+        {% if sub_images %}
+        <section class="post_images">
+            {% for image in sub_images %}
+                <div>
+                    <img src="{{ image.file.url }}" alt="">
+                    {% if image.description %}
+                        <p>{{ image.description }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </section>
+        {% endif %}
+
+        <section class="suggestions">
+            {% for event in suggestions %}
+                <div class="upcoming_body_item">
+                    <div class="item_img">
+                        <img src="{{ event.main_image.url }}" alt="">
+                        <a href="{% url 'event_detail' event.slug %}">Read more</a>
+                    </div>
+                    <div class="item_content">
+                        <p>
+                            {% for tag in event.tags.all %}
+                                <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name|title }}</a>, 
+                            {% endfor %}
+                        </p>
+                        <h3><a href="{% url 'event_detail' event.slug %}">{{ event.title|title }}</a></h3>
+                        <p>{{ event.date|date:"d D, Y" }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+        {% if all_tags %}
+        <div class="tags_container">
+            <h3>The Newsroom:</h3>
+            <div class="tags">
+                {% for tag in all_tags %}
+                    <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name|title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+    </div>
+{% endblock content %}
+
+
+{% block script %}
+<script type="text/javascript">
+    window.addEventListener('load', () => {
+        if (document.querySelector('.post_images')){
+            var post_images = document.querySelector('.post_images').querySelectorAll('div');
+        };
+        if (document.querySelector('.suggestions')){
+            var suggestions = document.querySelector('.suggestions').querySelectorAll('.upcoming_body_item');
+        };
+        var delay = 0.1;
+
+        const recent_observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry => {
+                entry.target.style.animationDelay = delay + 's';
+                if(entry.isIntersecting){
+                    entry.target.classList.add('display_recent');
+                }
+                delay += 0.1;
+                setTimeout(() => {
+                    delay = 0.1;
+                }, 1000);
+                
+            });
+        });
+
+        const suggestion_observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry => {
+                entry.target.style.animationDelay = delay + 's';
+                if(entry.isIntersecting){
+                    entry.target.classList.add('display_suggestion');
+                }
+                delay += 0.1;
+                setTimeout(() => {
+                    delay = 0.1;
+                }, 1000); 
+            });
+        });
+
+        if (post_images){
+            post_images.forEach(item => {
+                recent_observer.observe(item);
+            });
+        }
+
+        if (suggestions){
+            suggestions.forEach(item => {
+                suggestion_observer.observe(item);
+            });
+        }
+    })
+</script>
+{% endblock script %}
+</html>

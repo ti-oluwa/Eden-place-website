@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | Login</title>
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static '/users//login.css' %}">
+</head>
+<body>
+    <main class="container">
+        {% for message in messages %}
+            <div>{{ message }}</div>
+        {% endfor %}
+        
+        <div id="login">
+            <h1>Sign in</h1>
+            <p class="quote_text">“Education is the key that unlocks the golden door to freedom.”<br>
+            <strong> —George Washington Carver</strong></p>
+            <form id="login_form" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="form_field" id="user">
+                    <label for="user_id">Full Name or Identification Number</label>
+                    <input type="text" name="user_id" id="user_id" placeholder="EP**/****/AB12 ... Jane Doe" required autofocus=True autocomplete="username">
+                    <p class="help_text">Your ID is your registration number or staff ID </p>
+                </div>
+                
+                <div class="form_field" id="pass">
+                    <label for="password">Password</label>
+                    <input type="password" minlength=6 name="password" id="password" placeholder="Password" required autocomplete="current-password">
+                    <p class="help_text">If you're visiting for the first time, your password is your last name in lowercase</p>
+                </div>
+                <button type="submit" id="login_btn" disabled>Login</button>
+            </form>
+        </div>
+    </main>
+    <script src="{% static 'users/jquery-3.6.1.min.js' %}"></script>
+    <script type="text/javascript">
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+                }
+            }
+            return cookieValue;
+        }
+
+    
+        $(document).ready(function(){
+            $('#login_btn').click(function(e){
+                e.preventDefault();
+                var user_id= $('#user_id').val();
+                var password= $('#password').val();
+                var login_form = $('#login_form');
+                $.ajax({
+                    url: "{% url 'validate' %}",
+                    type: "POST",
+                    cache: false,
+                    dataType: "json",
+                    data: JSON.stringify({"user_id": user_id, "password": password}),
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRFToken": getCookie("csrftoken"),
+                    },
+                    success: function(data){
+                        if (data.message == "valid") {
+                            login_form.submit();
+                        }
+                        else {
+                            displayError(data);
+                        }
+                    }
+                });
+            });
+
+            function displayError(data){
+                document.querySelector('#' + data.field).querySelector('.help_text').innerHTML = data.message;
+                document.querySelector('#' + data.field).querySelector('.help_text').style.setProperty('color', "red", 'important');
+                document.querySelector('#' + data.field).querySelector('input').style.setProperty('border-color', "red", 'important');
+                document.querySelector('#' + data.field).querySelector('input').style.setProperty('box-shadow', "0 0 0 0.2rem rgba(255, 0, 0, 0.25)", 'important');
+
+                document.querySelector('#' + data.field).querySelector('input').addEventListener('input', function(){
+                    document.querySelector('#' + data.field).querySelector('.help_text').style.setProperty('color', "", 'important');
+                    document.querySelector('#' + data.field).querySelector('input').style.setProperty('border-color', "", 'important');
+                    document.querySelector('#' + data.field).querySelector('input').style.setProperty('box-shadow', "", 'important');
+                });
+            }
+
+            $("#login").keyup(function(){
+                var user_id = $("#user_id").val();
+                if (user_id == "") {
+                    $("#login_btn").attr("disabled", true);
+                    $("#login_btn").css("pointerEvents", "none");
+                    return false;
+                }
+                else {
+                    $("#login_btn").attr("disabled", false);
+                    $("#login_btn").css("pointerEvents", "auto");
+                    return true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

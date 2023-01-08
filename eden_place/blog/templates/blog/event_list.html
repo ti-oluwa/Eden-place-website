@@ -1,0 +1,125 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+
+{% block title %}
+    <title>{{ tag|title }} Events . Eden Place</title>
+{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="../../static/blog/event_list.css">
+{% endblock styles %}
+
+{% block content %}    
+    <div class="container">
+        <section class="main_section">
+            <h1>{{ tag|title }}</h1>
+            {% if is_paginated and page_obj.number > 1 %}
+              <p>Page {{ page_obj.number }}</p>
+            {% endif %}
+            <div class="share_tab">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_full_path }}" style="background-color: #3177ea;" target="__blank">
+                    <img src="../../static/images/facebook.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ request.get_full_path }}" style="background-color: #fff;" target="__blank">
+                    <img src="../../static/images/twitter.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?url={{ request.get_full_path }}" style="background-color: #2d79b5;" target="__blank">
+                    <img src="../../static/images/linkedin.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
+                </a>
+            </div>
+        </section>
+
+        <section class="tag">
+            <div class="tag_events">
+                {% for event in events %}
+                    <div class="upcoming_body_item">
+                        <div class="item_img">
+                            <img src="{{ event.main_image.url }}" alt="">
+                            <a href="{% url 'event_detail' event.slug %}">Read more</a>
+                        </div>
+                        <div class="item_content">
+                            <p>
+                                {% for tag in event.tags.all %}
+                                    <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name|title }}</a>,  
+                                {% endfor %}
+                            </p>
+                            <h3><a href="{% url 'event_detail' event.slug %}">{{ event.title|title }}</a></h3>
+                            <p>{{ event.date|date:"d D, Y" }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+        {% if is_paginated %}
+            <div class="pagination">
+                <div class="page_numbers">
+                    {% for page_num in page_obj.paginator.page_range|slice:'3' %}
+                        {% if page_obj.number == page_num %}
+                            <a href="?tag={{ tag }}&&page={{ page_num }}" class="page active">{{ page_num }}</a>
+                        {% else %}
+                            <a href="?tag={{ tag }}&&page={{ page_num }}" class="page">{{ page_num }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.paginator.page_range|length > 3 %}
+                        <span>...</span>
+                        {% if page_obj.number == page_obj.paginator.page_range|last %}
+                            <a href="?tag={{ tag }}&&page={{ page_obj.paginator.page_range|last }}" class="page active">{{ page_obj.paginator.page_range|last }}</a>
+                        {% else %}
+                            <a href="?tag={{ tag }}&&page={{ page_obj.paginator.page_range|last }}" class="page">{{ page_obj.paginator.page_range|last }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="page_btns">
+                    {% if page_obj.has_previous %}
+                        <a href="?tag={{ tag }}&&page={{ page_obj.previous_page_number }}" class="page_btn">
+                            <img src="../../static/images/down.svg" alt="" style="width: clamp(12px, 2vw, 14px); height: clamp(12px, 2vw, 14px); transform: rotate(90deg);">
+                            Go back
+                        </a>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                        <a href="?tag={{ tag }}&&page={{ page_obj.next_page_number }}" class="page_btn">
+                            View more
+                            <img src="../../static/images/down.svg" alt="" style="width: clamp(12px, 2vw, 14px); height: clamp(12px, 2vw, 14px); transform: rotate(270deg);">
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock content %}
+
+
+{% block script %}
+<script type="text/javascript">
+    window.addEventListener('load', function() {
+        var tag_items = document.querySelector('.tag').querySelectorAll('.upcoming_body_item');
+        var delay = 0.1;
+
+        const recent_observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry => {
+                entry.target.style.animationDelay = delay + 's';
+                if(entry.isIntersecting){
+                    entry.target.classList.add('display_recent');
+                }
+                delay += 0.1;
+                setTimeout(() => {
+                    delay = 0.1;
+                }, 1000);
+            });
+        });
+
+        tag_items.forEach(item => {
+            recent_observer.observe(item);
+        });
+
+    })
+</script>
+{% endblock script %}

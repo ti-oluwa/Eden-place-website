@@ -1,0 +1,867 @@
+@import url('https://fonts.googleapis.com/css?family=Manrope');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=DM+Sans');
+@import url('https://fonts.googleapis.com/css?family=Cabin');
+@import url('https://fonts.googleapis.com/css?family=Secular+One');
+@import url('https://fonts.googleapis.com/css?family=Anton');
+@import url('https://fonts.googleapis.com/css?family=Cookie');
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes');
+@import url('https://fonts.googleapis.com/css2?family=Vesper+Libre&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Scope+One&family=Vesper+Libre&display=swap');
+
+
+@font-face {
+    font-family: 'Monarda';
+    src: url('monarda-webfont.woff2') format('woff2'),
+         url('monarda-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Billie Sight';
+    src: url('billie-sight.otf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+:root{
+    --text-muted-color: #d5dce5;
+    --text-pop-color: #373b3f;
+    --heading-color: #0e1318;
+    --sub-heading-color: #1f1f1f;
+    --body-bg-color: #fff;
+    --text-color: #333;
+    --text-color-sec: #e85585;
+    --text-extra: #1f2f3f;
+    --bg-primary: #f1f3f5;
+    --bg-secondary:#e1e1e1;
+    --bg-tertiary:#f6f6f6;
+    --input-bg-color: #f1f3f5;
+    --img-filter:;
+    --quote-text-color: #024445;
+    --quote-text-strong: #057778;
+    --border-color-primary:;
+    --border-color-secondary:;
+    --input-text-color:#6a6d71;
+    --input-border-color:var(--text-muted-color);
+    --input-border-color-focus:var(--link-hover-color);
+    --input-bg-color-focus:;
+    --input-text-color-focus:;
+    --input-border-color-error:;
+    --input-bg-color-error:;
+    --input-text-color-error:;
+    --input-border-color-disabled:;
+    --input-bg-color-disabled:;
+    --input-text-color-disabled:;
+    --input-border-color-success:;
+    --input-bg-color-success:;
+    --input-text-color-success:;
+    --input-border-color-warning:;
+    --link-highlight-color:#8321e9;
+    --link-hover-color:#caa0f6;
+    --button-bg-color:#6720b2;
+    --button-bg-color-hover-tertiary:#e1e4e7;
+    --button-bg-color-hover-primary:#f1f3f5;
+    --button-bg-color-hover-secondary:#922ffb;
+    --button-bg-color-active:#7425c7;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    margin: 0 auto;
+    width: 90%;
+}
+
+.be_container{
+    width: 100%;
+}
+
+body{
+    font-family: "Raleway";  
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    font-smooth: always !important;
+    -webkit-text-size-adjust: none;
+    color: var(--text-color);
+    background-color: #fff;
+}
+
+
+h1,h2, h3, h4, h5, h6{
+    font-family: "Manrope";
+    color: var(--heading-color);
+}
+
+p, li, a{
+    font-family: "Raleway";
+    color: var(--text-color);
+}
+
+a{
+    text-decoration: none;
+}
+
+::placeholder{
+    color: var(--input-text-color);
+    font-family: "Manrope";
+    font-size: clamp(12px, 2vw, 14px);
+}
+
+input{
+    font-family: "Manrope";
+    border-radius: 2px;
+    border: 1px solid var(--input-border-color);
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+input:focus-within, textarea:focus-within{
+    border: 1px solid var(--input-border-color-focus);
+    margin: -1px !important;
+}
+
+input:not(:placeholder-shown){
+    border: 1px solid var(--input-border-color-focus);
+    margin: -1px !important;
+}
+
+label{
+    color: var(--sub-heading-color);
+    font-weight: 700;
+}
+
+button{
+    font-family: "Manrope";
+    border-radius: 4px;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 20px;
+    outline: none !important;
+    transition: all 0.1s ease-out;
+}
+
+button:disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+
+.page_head{
+    font-family: 'Monarda';
+    color: var(--text-pop-color);
+    font-size: clamp(26px, 4vw, 40px);
+    margin-top: 120px;
+    margin-bottom: 20px;
+}
+
+#publish_form{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0px clamp(0px, 2vw, 10px);
+    gap: 28px;
+}
+
+.form_group{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.title_section label{
+    font-family: 'Raleway';
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--text-pop-color);
+    margin-bottom: 12px;
+}
+
+.title_section input{
+    width: 100%;
+    max-width: 500px;
+    height: 40px;
+    padding: 8px 10px;
+    border-color: var(--input-border-color);
+}
+
+.title_section input:focus-within{
+    border-color: var(--input-border-color-focus);
+}
+
+.tags_section h3{
+    font-family: 'Raleway';
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--text-pop-color);
+    margin-bottom: 12px;
+}
+
+.tags_section .selected_tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px clamp(10px, 2vw, 20px);
+    justify-content: flex-start;
+    align-items: flex-start; 
+    padding: 12px 10px;
+    border: 1px solid var(--text-muted-color);
+    width: 100%;
+    max-width: 400px;
+    min-height: 40px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.selected_tags h4{
+    font-size: clamp(12px, 2vw, 14px);
+    font-weight: 600;
+    font-family: 'Manrope';
+    color: var(--input-text-color);
+    opacity: 0.7;
+}
+
+.selected_tags p{
+    font-size: clamp(10px, 2vw, 12px);
+    font-weight: 600;
+    font-family: 'Manrope';
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-color);
+    cursor: pointer;
+    animation: show_tag ease 0.2s forwards;
+    opacity: 0;
+}
+
+@keyframes show_tag {
+    from{
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.selected_tags p:hover{
+    background-color: var(--bg-secondary);
+}
+
+.tags_section .search_tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.search_tags input{
+    width: 70%;
+    height: 40px;
+    padding: 8px 10px;
+}
+
+.search_tags p{
+    padding: 10px 12px;
+    background-color: var(--link-highlight-color);
+    color: #fff;
+    font-family: 'Manrope';
+    font-size: clamp(12px, 2vw, 14px);
+    border-radius: 2px;
+    cursor: pointer;
+    
+}
+
+.search_tags p:hover{
+    opacity: 0.9;
+}
+
+.search_tags p:active{
+    animation: press 0.3s forwards ease-in-out;
+}
+
+
+.show{
+    display: flex !important;
+}
+
+.tags_section .create_tags{
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border-top: var(--link-hover-color) 2px solid;
+    border-bottom: var(--link-hover-color) 2px solid;
+    animation: show_tag_form ease 0.2s forwards;
+    opacity: 0;
+}
+
+
+@keyframes show_tag_form {
+    from{
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.create_tags p{
+    font-size: clamp(12px, 2vw, 14px);
+    font-weight: 600;
+    font-family: 'Manrope';
+    color: var(--text-color);
+}
+
+.create_tags #add_tag{
+    color: #fff;
+    background-color: var(--link-highlight-color);
+    padding: 5px 10px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#add_tag:hover{
+    opacity: 0.9;
+}
+
+#add_tag:active{
+    animation: press 0.3s forwards ease-in-out;
+}
+
+.create_tags input{
+    width: 70%;
+    height: 30px;
+    padding: 8px 10px;
+}
+
+.create_tags textarea{
+    width: 70%;
+    height: 50px;
+    resize: none;
+    padding: 8px 10px;
+    font-family: "Manrope";
+    border-radius: 2px;
+    border: 1px solid var(--input-border-color);
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.create_tags textarea:focus-within{
+    border: 1px solid var(--input-border-color-focus);
+
+}
+
+.create_tags ::placeholder{
+    font-size: clamp(12px, 2vw, 14px);
+}
+
+.tags_section .result_tags{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+}
+
+.result_tags p{
+    font-size: clamp(12px, 2vw, 14px);
+    font-weight: 600;
+    font-family: 'Manrope';
+    color: var(--text-color);
+}
+
+.tags_section .result_tags div{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px clamp(10px, 2vw, 15px);
+    justify-content: flex-start;
+    align-items: flex-start; 
+    padding: 12px 10px;
+    border: 1px solid var(--text-muted-color);
+    width: 100%;
+    max-width: 500px;
+    min-height: 80px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.result_tags div p{
+    font-size: clamp(10px, 2vw, 12px);
+    font-weight: 600;
+    font-family: 'Manrope';
+    padding: 5px 10px;
+    border-radius: 4px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.result_tags div p:last-of-type{
+    animation: show_tag ease 0.2s forwards;
+    opacity: 0;
+}
+
+
+.result_tags div p:hover{
+    background-color: var(--bg-secondary);
+}
+
+.image_section{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    gap: 44px;
+}
+
+.image_section .main_img{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.main_img input[type=file]{
+    display: none;
+}
+
+.main_img h3{
+    font-family: 'Raleway';
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--text-pop-color);
+    margin-bottom: 15px;
+}
+
+.main_img label{
+    background-color: var(--input-text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 12px;
+    max-width: max-content;
+    color: #fff;
+    border-radius: 2px;
+    font-size: clamp(12px, 2vw, 16px);
+    cursor: pointer;
+}
+
+.main_img label:hover{
+    opacity: 0.85;
+}
+
+.preview{
+    width: 220px;
+    height: 200px;
+    display: none;
+    position: relative;
+    box-shadow: 0 2px 2px  rgb(31, 31, 31, 0.25);
+    animation: show_tag_form 0.3s ease forwards;
+    opacity: 0;
+}
+
+.preview p{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 15%;
+    font-size: clamp(10px, 2vw, 14px);
+    font-weight: 500;
+    font-family: 'Manrope';
+    background-color: var(--bg-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 5px;
+}
+
+.preview img{
+    width: 100%;
+    height: 90%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.image_section .other_imgs{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.other_imgs .head{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.other_imgs .head h3{
+    font-family: 'Raleway';
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--text-pop-color);
+}
+
+.other_imgs .head p{
+    padding: 10px 12px;
+    background-color: var(--link-highlight-color);
+    color: #fff;
+    font-family: 'Manrope';
+    font-size: clamp(12px, 2vw, 14px);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.other_imgs .head p:hover{
+    opacity: 0.9;
+}
+
+.other_imgs.head p:active{
+    animation: press 0.3s forwards ease-in-out;
+}
+
+
+.other_imgs .added_images{
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding:clamp(10px, 2vw, 20px) 20px;
+    background-color: var(--bg-secondary);
+}
+
+.added_images .added_img{
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2vw, 24px);
+    border: 1.5px solid var(--text-pop-color);
+    padding:clamp(12px, 2vw, 20px);
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px  rgb(31, 31, 31, 0.25);
+}
+
+.added_img:last-of-type{
+    animation: show_card 0.5s ease forwards;
+    opacity: 0;
+}
+
+@keyframes show_card {
+    from{
+        transform: translate(20px);
+        opacity: 0;
+    }
+    to{
+        transform: translate(0);
+        opacity: 1;
+    }
+}
+
+.added_img .top{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.top input[type=file]{
+    display: none;
+}
+
+.top div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: clamp(16px, 2vw, 10px);
+    width: 80%;
+}
+
+.top div label{
+    cursor: pointer;
+    background-color: var(--input-text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 8px;
+    max-width: max-content;
+    color: #fff;
+    border-radius: 2px;
+    font-size: clamp(12px, 2vw, 16px);
+    font-weight: 400;
+    font-family: 'Manrope';
+    transition: 0.05s ease-in-out;
+}
+
+.top label:hover{
+    opacity: 0.85;
+}
+
+.top #remove{
+    font-size: clamp(20px, 2vw, 24px);
+    font-weight: 600;
+    font-family: 'DM Sans';
+    color: var(--text-color-sec);
+    cursor: pointer;
+} 
+
+.top #remove:hover{
+    opacity: 0.9;
+}
+
+.top div .preview{
+    width: 100%;
+    display: none;
+}
+
+.added_img .body{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.body label{
+    font-size: clamp(12px, 2vw, 14px);
+    font-weight: 600;
+    font-family: 'Manrope';
+}
+
+.body textarea{
+    height: 60px;
+    resize: none;
+    padding: 8px 10px;
+    font-family: "Manrope";
+    border-radius: 2px;
+    border: 1px solid var(--input-border-color);
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.body textarea:focus-within{
+    border: 1px solid var(--input-border-color-focus);
+
+}
+
+.content_section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+    border-collapse: collapse;
+}
+
+.content_section h1{
+    font-family: 'Raleway';
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--text-pop-color);
+    margin-bottom: 12px;
+}
+
+.content_section .tools{
+    width: 100%;
+    border-radius: 2px;
+    /* margin-bottom: 5px; */
+    border-collapse: collapse;
+}
+
+.tools td{
+    padding: 8px 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    font-size: clamp(12px, 2vw, 16px);
+    font-family: 'Cabin';
+    color: #fff;
+    transition: 0.1s ease-in-out;
+    border-bottom: none;
+}
+
+.tools tr{
+    background-color: var(--input-text-color);
+}
+
+.tools td:active{
+    background-color: var(--text-pop-color);
+}
+
+.content_section .add_link{
+    display: none;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 8px;
+    gap: 16px;
+    background-color: #ddd;
+    border-left: 1px solid #888;
+    border-right: 1px solid #888;
+    animation: show_link 0.2s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes show_link {
+    from{
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.add_link input{
+    height: 30px;
+    flex: auto;
+    padding: 8px 10px;
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.add_link #link_done{
+    padding: 5px 8px;
+    background-color: var(--text-extra);
+    color: #fff;
+    border-radius: 2px;
+    font-size: clamp(12px, 2vw, 14px);
+    cursor: pointer;
+}
+
+#link_done:hover{
+    opacity: 0.9;
+}
+
+.content_section textarea{
+    width: 100%;
+    height: 400px;
+    resize: none;
+    padding: 8px 10px;
+    font-family: "Manrope";
+    border: 1px solid #888;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+    hyphens: auto;
+    line-break: anywhere;
+    background-color: #f2f2f2;
+}
+
+#publish_btn{
+    padding: 10px 20px;
+    background-color: var(--button-bg-color);
+    color: #fff;
+    font-family: "Manrope";
+    font-weight: 600;
+    font-size: clamp(14px, 2vw, 18px);
+    align-self: flex-end;
+    border-radius: 2px;
+    margin-bottom: 40px;
+    cursor: pointer;
+    transition: 0.08s ease-in-out;
+}
+
+#publish_btn:hover{
+    opacity: 0.8;
+}
+
+#publish_btn:active{
+    animation: press 0.3s forwards ease-in-out;
+}
+
+.date_section{
+    margin-bottom: 20px;
+}
+
+.date_section h3{
+    font-family: 'Raleway';
+    font-size: clamp(18px, 2vw, 24px);
+    color: var(--text-pop-color);
+    margin-bottom: 12px;
+}
+
+.date_section input{
+    padding: 8px 10px;
+    font-family: "Manrope";
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 150px;
+}
+
+.highlighted{
+    background-color: #057778;
+    padding: 5px;
+    color: #fff;
+}
+
+@keyframes press {
+    0%{
+        transform: scale(0.95);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+
+@media (hover:hover){
+    .tools td:hover{
+        background-color: var(--text-pop-color);
+    }
+}
+
+@media screen and (max-width: 828px) {
+    .page_head{
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width:480px){
+    .search_tags input{
+        width: 100%;
+    }
+}

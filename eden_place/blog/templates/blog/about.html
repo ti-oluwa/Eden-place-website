@@ -1,0 +1,388 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'blog/about.css' %}">
+{% endblock styles %}
+{% block title %}    
+    <title>About Us . Eden Place</title>
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="showcase">
+            <div class="showcase_main">
+                <img src="../../static/images/landing2.jpg" alt="" style="width: 100%; height: 100%;">
+                <div class="main_card">
+                    <div>
+                        <h3>Eden Place Schools</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, tenetur?</p>
+                    </div>
+                    <a href="">View school history</a>
+                </div>
+            </div>
+            <h1>About Us</h1>
+            <div class="showcase_text">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam at quod cupiditate tempore quis rem natus porro 
+                    quibusdam, voluptate quia? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam at quod cupiditate tempore quis rem natus porro 
+                    quibusdam, voluptate quia?
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam at quod cupiditate tempore quis rem natus porro 
+                    quibusdam, voluptate quia?
+                </p>
+            </div>
+            <div class="quick_nav">
+                <p>Jump to</p>
+                <div>
+                    <a id="#mission">Our mission</a>
+                    <a id="#values">Our values</a>
+                    <a id="#history">The school's history</a>
+                    <a id="#proprietress">Meet the proprietress</a>
+                    <a id="#policies">School policies</a>
+                    <a id="#jobs">Jobs and hiring</a>
+                </div>
+            </div>
+        </div>
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+        <section class="section">
+            <div class="section_image">
+                <div class="img_main">
+                    <img src="../../static/images/curriculum.jpg" alt="">
+                    <div class="frame"></div>
+                </div>
+                <div class="img_sub1">
+                    <img src="../../static/images/never_stop_learning.jpg" alt="">
+                </div>
+                <div class="img_sub2">
+                    <img src="../../static/images/landing3.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="section_text" id="mission">
+                <h1 class="text_head">Our Mission</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel ullam, 
+                    deserunt nemo officia voluptatum fugiat labore numquam nostrum eveniet, vitae totam soluta odio harum eligendi iusto veniam quidem culpa! 
+                    Repellendus, excepturi quidem quis sit qui aperiam tenetur non voluptates atque?
+                </p>
+            </div>
+        </section>
+
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+        <section class="values_section" id="values">
+            <h1 class="text_head">Our Values</h1>
+            <div class="text_body">
+                <p class="text_body_head">At Eden Place we cherish:</p>
+                <div>
+                    <h3>Innovation</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat quasi rem modi dolor itaque praesentium iste cum mollitia ea eveniet.</p>
+                </div>
+                <div>
+                    <h3>Inclusive</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat quasi rem modi dolor itaque praesentium iste cum mollitia ea eveniet.</p>
+                </div>
+                <div>
+                    <h3>Discipline</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Placeat quasi rem modi dolor itaque praesentium iste cum mollitia ea eveniet.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+        <section class="history_section" id="history">
+            <h1 class="history_head">A Rich History</h1>
+            <b>Our Founders Story</b>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam aspernatur est voluptas, 
+                qui rerum fugiat dolorum error unde earum rem illo vitae impedit at dignissimos exercitationem sunt nulla, 
+                saepe ea cum laboriosam officia non alias. Suscipit quidem mollitia at odio voluptatem repudiandae quasi saepe 
+                dolores accusantium quaerat exercitationem nulla, nihil corrupti eius, labore non quas deleniti modi! Saepe, laboriosam molestiae.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam aspernatur est voluptas, 
+                qui rerum fugiat dolorum error unde earum rem illo vitae impedit at dignissimos exercitationem sunt nulla, 
+                saepe ea cum laboriosam officia non alias. Suscipit quidem mollitia at odio voluptatem repudiandae quasi saepe 
+                dolores accusantium quaerat exercitationem nulla, nihil corrupti eius, labore non quas deleniti modi! Saepe, laboriosam molestiae.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam aspernatur est voluptas, 
+                qui rerum fugiat dolorum error unde earum rem illo vitae impedit at dignissimos exercitationem sunt nulla, 
+                saepe ea cum laboriosam officia non alias. Suscipit quidem mollitia at odio voluptatem repudiandae quasi saepe 
+                dolores accusantium quaerat exercitationem nulla, nihil corrupti eius, labore non quas deleniti modi! Saepe, laboriosam molestiae.
+            </p>
+
+            <a href="" class="apply_btn">
+                More on the school's history
+                <img src="../../static/images/left-arrow.svg" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+    
+        </section>
+
+        <div class="showcase_img" style="scroll-behavior: smooth;">
+            <div class="img">
+                <img src="../../static/images/landing1.jpg" alt="">
+                <div class="main_card">
+                    <div>
+                        <h3>Inauguration and Opening</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, tenetur?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="img">
+                <img src="../../static/images/landing2.jpg" alt="">
+                <div class="main_card">
+                    <div>
+                        <h3>Nigerian Inter School Games</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, tenetur?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="img">
+                <img src="../../static/images/landing3.jpg" alt="">
+                <div class="main_card">
+                    <div>
+                        <h3>2020/21 Session Valedictory Service</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, tenetur?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider_container">
+            <hr class="divider_sec">
+        </div>
+
+        <div class="quote_section_sub">
+            <div class="quote_sub">
+                <p class="quotation_mark_sub">''</p>
+                <p class="quote_text_sub">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, tenetur?
+                </p>
+            </div>
+            <p class="from_sub">The Good Schools</p>
+        </div>
+
+        <div class="divider_container">
+            <hr class="divider_sec">
+        </div>
+
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+        <section class="meet_the_head" id="proprietress">
+            <h1>Meet the Proprietress</h1>
+            <div class="section_body">
+                <div class="section_details">
+                    <h3>Mrs. Afolayan Comfort</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa soluta pariatur exercitationem
+                         beatae doloribus eveniet accusantium placeat voluptatem earum quia.
+                    </p>
+                </div>
+
+                <div class="head_img">
+                    <img src="../../static/images/landing3.jpg" alt="">
+                    <div class="frame"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+        <section class="policy_section" id="policies">
+            <h1 class="text_head">School Policies</h1>
+            <p>
+                We work in partnership with pupils, parents, child protection agencies and diverse communities to continuously 
+                develop and improve safeguarding within our school. Find out more about the school's core policies.
+            </p>
+            <a href="" class="apply_btn">
+                View our policies
+                <img src="../../static/images/left-arrow.svg" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>     
+        </section>
+
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+        <section class="window_section" id="jobs">
+            <h1 class="text_head">Jobs and Hiring</h1>
+            <div class="window">
+                <img class="window_img" src="../../static/images/enroll.jpg" alt="">
+                <div class="window_text">
+                    <p>Eden Place is an exciting place to teach and to learn. Find out more about opportunities to join our staff.</p>
+                    <a href="" class="apply_btn" style="background-color: var(--button-bg-color);">
+                        Work with us
+                        <img src="../../static/images/left-arrow.svg" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+                    </a>     
+                </div>
+            </div>
+        </section>
+
+    </div>
+{% endblock content %}
+
+
+{% block script %}
+<script type="text/javascript">
+    window.addEventListener( 'resize', () => {
+        let showcase_imgs = document.querySelectorAll('.showcase_img');
+        var images = document.querySelectorAll('.img');
+        images.forEach(image => {
+            image.querySelector('img').style.width = showcase_imgs[0].clientWidth + 'px';
+        });
+    });
+
+
+
+    window.addEventListener( 'load', () => {
+        let quick_links = document.querySelectorAll('.quick_nav div a');
+        quick_links.forEach((link)=>{
+            link.addEventListener('click', (event)=>{
+                let target = document.querySelector(`${link.id}`);
+                target.scrollIntoView(
+                    {
+                        behavior: 'smooth',
+                        block: 'start',
+                    }
+                );
+            });
+        });
+        
+        let showcase_imgs = document.querySelectorAll('.showcase_img');
+        var images = document.querySelectorAll('.img');
+        images.forEach(image => {
+            image.querySelector('img').style.width = showcase_imgs[0].clientWidth + 'px';
+        });
+
+        var img_width = showcase_imgs[0].querySelectorAll('.img')[0].clientWidth;
+        
+        // var section_image = document.querySelectorAll('.section_image');
+        // var section_text = document.querySelectorAll('.section_text');
+        var window_img = document.querySelector('.window_img');
+        
+        var sub_quote = document.querySelectorAll('.quote_section_sub');
+        var values_section_text = document.querySelector('.values_section').querySelector('.text_body').querySelectorAll('div');
+        var history_section_text = document.querySelector('.history_section').querySelectorAll('b, p');
+        var meet_the_head = document.querySelector('.meet_the_head').querySelectorAll('h3, p');
+        var head_img = document.querySelector('.head_img');
+
+        const section_observer_side = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                    entry.target.classList.add('display_section_sideways');
+                }
+            });
+        });
+
+        section_observer_side.observe(head_img);
+
+        const window_observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                    entry.target.classList.add('zoom_in_window');
+                }
+            });
+        });
+
+        window_observer.observe(window_img);
+
+        const section_observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                    entry.target.classList.add('display_section');
+                }
+            });
+        });
+
+        values_section_text.forEach(child => {
+            section_observer.observe(child);
+        });
+
+       history_section_text.forEach(text => {
+            section_observer.observe(text);
+        });
+
+        sub_quote.forEach(quote => {
+            section_observer.observe(quote);
+        });
+
+        meet_the_head.forEach(text => {
+            section_observer.observe(text);
+        });
+
+        const card_observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                    entry.target.classList.add('display_card');
+                }else{
+                    entry.target.classList.remove('display_card');
+                }
+            });
+        });
+
+        showcase_imgs.forEach(showcase_img => {
+            showcase_img.querySelectorAll('.main_card').forEach(card => {
+                card_observer.observe(card);
+            });
+        })
+
+        
+        function to_bool(val){
+            if(val == 'true'){
+                return true
+            }else {
+                return false
+            };
+        };
+
+        const slide_observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){   
+                    var reached_end = to_bool(entry.target.querySelectorAll('.img')[0].id);
+                    entry.target.id = setInterval(() => {
+                        if(reached_end){
+                            entry.target.scrollBy(-img_width, 0);
+                        }else{
+                            entry.target.scrollBy(img_width, 0);
+                        }
+                        if (entry.target.scrollLeft + img_width >= entry.target.scrollWidth) {
+                            reached_end = true;
+                            entry.target.querySelectorAll('.img')[0].id = reached_end
+                            entry.target.scrollBy(-img_width, 0);
+                        }
+                        if (entry.target.scrollLeft == 0) {
+                            reached_end = false;
+                            entry.target.querySelectorAll('.img')[0].id = reached_end
+                        }
+                    }, 8000);
+                }
+                else{
+                    clearInterval(entry.target.id)
+                };
+            });
+        });
+
+        showcase_imgs.forEach(showcase_img => {
+            slide_observer.observe(showcase_img);
+        });
+        
+    });
+</script>
+{% endblock script %}
+</html>

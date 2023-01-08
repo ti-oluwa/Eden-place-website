@@ -1,0 +1,118 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'blog/events.css' %}">
+{% endblock styles %}
+
+{% block title %}
+    <title>Events . Eden Place</title>
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <section class="main_section">
+            <h1>Events</h1>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Quasi minima, quidem molestias ad hic aspernatur debitis ea perspiciatis quod accusantium?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Quasi minima, quidem molestias ad hic aspernatur debitis ea perspiciatis quod accusantium
+            </p>
+            <div class="share_tab">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_full_path }}" style="background-color: #3177ea;" target="__blank">
+                    <img src="../../static/images/facebook.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ request.get_full_path }}" style="background-color: #fff;" target="__blank">
+                    <img src="../../static/images/twitter.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?url={{ request.get_full_path }}" style="background-color: #2d79b5;" target="__blank">
+                    <img src="../../static/images/linkedin.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
+                </a>
+            </div>
+        </section>
+
+        <section class="upcoming">
+            <h1>Upcoming Events</h1>
+            <div class="upcoming_events">
+                {% for event in upcoming_events %}
+                    <div class="upcoming_body_item">
+                        <div class="item_img">
+                            <img src="{{ event.main_image.url }}" alt="">
+                            <a href="{% url 'event_detail' event.slug %}">Read more</a>
+                        </div>
+                        <div class="item_content">
+                            <p>
+                                {% for tag in event.tags.all %}
+                                    <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name|title }}</a>, 
+                                {% endfor %}
+                            </p>
+                            <h3><a href="{% url 'event_detail' event.slug %}">{{ event.title|title }}</a></h3>
+                            <p>{{ event.date|date:"d D, Y" }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <div class="divider_container">
+            <hr class="divider">
+        </div>
+
+        <section class="past">
+            <div class="head">
+                <h1>Past Events</h1>
+                <a href="{% url 'tag_events' %}?tag=All">View all</a>
+            </div>
+
+            <div class="past_events">
+                {% for event in past_events %}
+                    <div class="upcoming_body_item">
+                        <div class="item_img">
+                            <img src="{{ event.main_image.url }}" alt="">
+                            <a href="{% url 'event_detail' event.slug %}">Read more</a>
+                        </div>
+                        <div class="item_content">
+                            <p>
+                                {% for tag in event.tags.all %}
+                                    <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name|title }}</a>,  
+                                {% endfor %}
+                            </p>
+                            <h3><a href="{% url 'event_detail' event.slug %}">{{ event.title|title }}</a></h3>
+                            <p>{{ event.date|date:"d D, Y" }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+    </div>
+{% endblock content %}
+
+
+{% block script %}
+<script type="text/javascript">
+    window.addEventListener('load', function() {
+        var past_items = document.querySelector('.past').querySelectorAll('.upcoming_body_item');
+        var delay = 0.1;
+
+        const recent_observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry => {
+                entry.target.style.animationDelay = delay + 's';
+                if(entry.isIntersecting){
+                    entry.target.classList.add('display_recent');
+                }
+                delay += 0.1;
+                setTimeout(() => {
+                    delay = 0.1;
+                }, 1000);
+            });
+        });
+
+        past_items.forEach(item => {
+            recent_observer.observe(item);
+        });
+
+    })
+</script>
+{% endblock script %}

@@ -1,0 +1,54 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>FAQ'S . Eden Place</title>
+{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'blog/faq.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="container">
+        <section class="main_section">
+            <h1>FAQs</h1>
+            <p>
+                Here are some frequently asked question which have been answered in the best way possible.
+                You can check them out.
+            </p>
+        </section>
+
+        <section class="faq_section">
+            {% for faq in faqs %}
+            <div class="faq">
+                <hr>
+                <h3>
+                    <img src="../../static/images/down.svg" alt="" style="width: clamp(16px, 2vw, 20px); height: clamp(16px, 2vw, 20px);">
+                    {{ faq.question }}
+                </h3>
+                <div class="answer">
+                    <p>
+                        {{ faq.answer|linebreaks }}
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock content %}
+
+{% block script %}
+    <script type="text/javascript">
+        var faq = document.querySelectorAll('.faq');
+        // var answer = document.querySelectorAll('.answer');
+        // var img = document.querySelectorAll('img');
+
+        faq.forEach((item, index) => {
+            item.querySelector('h3').addEventListener('click', () => {
+                item.querySelector('.answer').classList.toggle('open');
+                item.querySelector('img').classList.toggle('flip');
+            });
+        });
+    </script>
+{% endblock script %}

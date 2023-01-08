@@ -1,0 +1,294 @@
+@import url('https://fonts.googleapis.com/css?family=Manrope');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=DM+Sans');
+@import url('https://fonts.googleapis.com/css?family=Cabin');
+@import url('https://fonts.googleapis.com/css?family=Secular+One');
+@import url('https://fonts.googleapis.com/css?family=Anton');
+@import url('https://fonts.googleapis.com/css?family=Cookie');
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes');
+@import url('https://fonts.googleapis.com/css2?family=Vesper+Libre&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Scope+One&family=Vesper+Libre&display=swap');
+
+
+@font-face {
+    font-family: 'Monarda';
+    src: url('monarda-webfont.woff2') format('woff2'),
+         url('monarda-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Billie Sight';
+    src: url('billie-sight.otf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+:root{
+    --text-muted-color: #d5dce5;
+    --text-pop-color: #373b3f;
+    --heading-color: #0e1318;
+    --sub-heading-color: #1f1f1f;
+    --body-bg-color: #fff;
+    --text-color: #333;
+    --text-color-sec: #e85585;
+    --text-extra: #1f2f3f;
+    --bg-primary: #f1f3f5;
+    --bg-secondary:#e1e1e1;
+    --bg-tertiary:#f6f6f6;
+    --input-bg-color: #f1f3f5;
+    --img-filter:;
+    --quote-text-color: #024445;
+    --quote-text-strong: #057778;
+    --border-color-primary:;
+    --border-color-secondary:;
+    --input-text-color:#6a6d71;
+    --input-border-color:var(--text-muted-color);
+    --input-border-color-focus:var(--link-hover-color);
+    --input-bg-color-focus:;
+    --input-text-color-focus:;
+    --input-border-color-error:;
+    --input-bg-color-error:;
+    --input-text-color-error:;
+    --input-border-color-disabled:;
+    --input-bg-color-disabled:;
+    --input-text-color-disabled:;
+    --input-border-color-success:;
+    --input-bg-color-success:;
+    --input-text-color-success:;
+    --input-border-color-warning:;
+    --link-highlight-color:#8321e9;
+    --link-hover-color:#caa0f6;
+    --button-bg-color:#6720b2;
+    --button-bg-color-hover-tertiary:#e1e4e7;
+    --button-bg-color-hover-primary:#f1f3f5;
+    --button-bg-color-hover-secondary:#922ffb;
+    --button-bg-color-active:#7425c7;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    margin: 0 auto;
+    width: 90%;
+}
+
+.be_container{
+    width: 100%;
+}
+
+body{
+    font-family: "Raleway";  
+    overflow-wrap: break-word;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    font-smooth: always !important;
+    -webkit-text-size-adjust: none;
+    color: var(--text-color);
+    background-color: #fff;
+}
+
+
+h1,h2, h3, h4, h5, h6{
+    font-family: "Manrope";
+    color: var(--heading-color);
+}
+
+p, li, a{
+    font-family: "Raleway";
+    color: var(--text-color);
+}
+
+a{
+    text-decoration: none;
+}
+
+::placeholder{
+    color: var(--input-text-color);
+    font-family: "Manrope";
+}
+
+input{
+    font-family: "Manrope";
+    border-radius: 6px;
+    border: 1px solid var(--input-border-color);
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+input:focus-within{
+    border: 1px solid var(--input-border-color-focus);
+    margin: -1px !important;
+}
+
+input:not(:placeholder-shown){
+    border: 1px solid var(--input-border-color-focus);
+    margin: -1px !important;
+}
+
+label{
+    color: var(--sub-heading-color);
+    font-weight: 700;
+}
+
+button{
+    font-family: "Manrope";
+    border-radius: 4px;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 20px;
+    outline: none !important;
+    transition: all 0.1s ease-out;
+}
+
+button:disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.main_section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 120px;
+}
+
+.main_section h1{
+    font-family: 'Monarda';
+    font-size: clamp(48px, 4vw, 90px);
+    font-weight: 500;
+    color:var(--text-pop-color);
+    margin: clamp(20px, 4vw, 40px) 0;
+    text-align: center;
+}
+
+.main_section p{
+    max-width: 600px;
+    font-family: 'DM Sans';
+    font-size: clamp(14px, 4vw, 20px);
+    color: var(--text-pop-color);
+    text-align: center;
+}
+
+.faq_section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* gap: 10px; */
+    margin: 60px 0;
+}
+
+.faq hr{
+    width: 100%;
+    height: 1px;
+    border-color: var(--text-muted-color);
+}
+
+.faq{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 500px;
+    position: relative;
+}
+
+.faq h3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: clamp(14px, 2vw, 16px);
+    font-family: 'Raleway';
+    font-weight: 600;
+    color: var(--text-pop-color);
+    padding: 20px 0;
+}
+
+.faq h3 img{
+    width: 20px;
+    height: 20px;
+    filter: contrast(0.4);
+    transition: all 0.2s ease-out;
+}
+
+.answer{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    max-width: 80%;
+    margin: 10px auto;
+}
+
+.answer p{
+    font-size: clamp(12px, 2vw, 14px);
+    font-family: 'Manrope';
+    font-weight: 400;
+    color: var(--text-color);
+    transform: translate(0, -10px);
+}
+
+.open{
+    display: flex;
+    animation: open 0.2s ease-out forwards;
+}
+
+@keyframes open{
+    0%{
+        transform: translate(0, -10px);
+        opacity: 0;
+    }
+    100%{
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+.flip{
+    transform: rotate(180deg) !important;
+}
+
+
+
+@media (hover:hover){
+    .faq h3:hover{
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+    .faq h3:hover img{
+        filter: contrast(1);
+    }
+}
+
+@media screen and (max-width: 828px){
+    .main_section{
+        margin-top: 50px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .faq{
+        width: 100%;
+    }
+}
