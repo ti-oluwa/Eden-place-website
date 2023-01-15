@@ -291,6 +291,12 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
                 if event.content != content:
                     event.content = content
 
+                # remove removed tags
+                for tag in event.tags.all():
+                    if tag.name.lower() not in [ tag_name.lower() for tag_name in selected_tags ]:
+                        event.tags.remove(tag)
+                
+
                 # add new tags
                 if selected_tags:
                     for tag_name in selected_tags:
@@ -301,10 +307,6 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
                         except Tag.DoesNotExist:
                             pass
 
-                # remove removed tags
-                for tag in event.tags.all():
-                    if tag.name.lower() not in [ tag_name.lower() for tag_name in selected_tags ]:
-                        event.tags.remove(tag)
                 
                 # set new date if changed
                 if event.date != date_time:
@@ -369,10 +371,10 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
         context = {}
         object = self.get_object()
         context['event'] = object
-        all_tags = []
+        all_tags = Tag.objects.all()
 
         for tag in object.tags.all():
-            all_tags = Tag.objects.all().exclude(id=tag.id)
+            all_tags = all_tags.exclude(id=tag.id)
 
         context['all_tags'] = all_tags
         context['other_imgs'] = self.get_sub_images()
