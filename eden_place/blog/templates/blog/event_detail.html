@@ -36,6 +36,14 @@
                 <img src="../../static/images/linkedin.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
             </a>
         </div>
+
+        {% if request.user.is_staff or  request.user.is_superuser %}
+        <div class="edit_tab">
+            <a href="{% url 'event_update' event.slug %}" class="edit_btn edit_tab_btn">Edit</a>
+            <a href="{% url 'event_delete' event.slug %}" class="delete_btn edit_tab_btn">Delete</a>
+        </div>
+        {% endif %}
+
         {% if event.content|length < 1000 %}
         <section class="post_body">
             <div class="post_main_img">

@@ -464,9 +464,7 @@ button:disabled{
 }
 
 @media screen and (max-width: 828px){
-    .main_section{
-        margin-top: 50px;
-    }
+   
 }
 
 @media screen and (max-width: 768px){

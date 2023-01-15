@@ -276,6 +276,40 @@ button:disabled{
     transition: 0.5s ease;
 }
 
+.edit_tab{
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit_tab_btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 8px;
+    border-radius: 4px;
+    /* box-shadow: 0 2px 5px rgba(0,0,0,0.2); */
+    transition: 0.5s ease;
+    color: #fff;
+    font-weight: 500;
+    font-size: clamp(12px, 4vw, 14px);
+    font-family: 'Manrope';
+}
+
+.edit_tab_btn:hover{
+    opacity: 0.8;
+}
+
+.edit_btn{
+    background: var(--link-hover-color);
+}
+
+.delete_btn{
+    background: rgb(184, 76, 98);
+}
+
 
 .post_body{
     display: flex;
@@ -365,7 +399,7 @@ button:disabled{
     gap: clamp(20px, 4vw, 40px) clamp(10px, 4vw, 20px);
     width: 100%;
     padding: 0 clamp(0, 4vw, 20px);
-    margin: clamp(80px, 2vw, 120px) 0;
+    margin-block: clamp(80px, 2vw, 120px) !important;
 }
 
 .post_images div{
@@ -377,6 +411,7 @@ button:disabled{
     align-items: flex-start;
     gap: 20px;
     opacity: 0;
+    overflow: hidden;
 }
 
 .post_images div img{
@@ -589,9 +624,7 @@ button:disabled{
 
 
 @media screen and (max-width: 828px){
-    .post_head{
-        margin-top: 40px;
-    }
+    
     .post_body{
         flex-direction: column;
         align-items: center;

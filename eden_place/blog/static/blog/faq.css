@@ -166,7 +166,7 @@ button:disabled{
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-top: 120px;
+    margin-top: 100px;
 }
 
 .main_section h1{
@@ -282,9 +282,7 @@ button:disabled{
 }
 
 @media screen and (max-width: 828px){
-    .main_section{
-        margin-top: 50px;
-    }
+      
 }
 
 @media screen and (max-width: 768px){

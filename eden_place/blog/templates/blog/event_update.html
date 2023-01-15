@@ -1,0 +1,552 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Update Event . Eden Place</title>
+{% endblock title %}
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'blog/event_create.css' %}">
+{% endblock styles %}
+
+
+{% block content %}
+   <div class="container">
+        <h1 class="page_head">Update Event</h1>
+        <form action="" id="publish_form">
+            {% csrf_token %}
+            <div class="form_group title_section">
+                <label for="">Title**</label>
+                <input type="text" name="title" id="title" required title="Enter event title" maxlength="200" placeholder="Event title or theme" value="{{ event.title }}" autofocus>
+            </div>
+
+            <div class="form_group tags_section">
+                <h3>Tags**</h3>
+                <div class="selected_tags">
+                    <!-- selected tags go here -->
+                    {% for tag in event.tags.all %}
+                        <p>{{ tag.name|title }} -</p>
+                    {% endfor %}
+                    <h4 style="display: none;">No tag added yet</h4>
+                </div>
+
+                <div class="search_tags">
+                    <input type="search" placeholder="Search tags" title="Search available tags" oninput="searchTags(event.target.value)">
+                    <p id="create_tag">Create New Tag</p>
+                </div>
+
+                <div class="create_tags">
+                    <p>Add a new tag</p>
+                    <input type="text" placeholder="Tag name" title="Enter tag name">
+                    <textarea name="description" id="desciption" placeholder="Description" title="Describe the tag"></textarea>
+                    <p id="add_tag">Add</p>
+                </div>
+
+                <div class="result_tags">
+                    <p>Available tags</p>
+                    <div>
+                        {% for tag in all_tags %}
+                            <p onclick="removePlaceholder()">{{ tag.name|title }} +</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_group image_section">
+                <div class="main_img">
+                    <h3>Thumbnail Image**</h3>
+                    <label for="thumbnail_img" title="Upload image">Select Image</label>
+                    <input type="file" accept=".jpeg, .jpg, .png" name="thumbnail_img" id="thumbnail_img" onchange="show_preview(event, 'thumbnail_img_preview')" max="1048576">
+                    <div class="preview show" id="thumbnail_img_preview">
+                        <img alt="" src="{{ event.main_image.url }}">
+                        <p>{{ event.main_image.url|cut:"/media/events_images/" }} ({{ event.main_image.file.size|filesizeformat }})</p>
+                    </div>
+                </div>
+
+                <div class="other_imgs">
+                    <div class="head">
+                        <h3>Other pictures from event</h3>
+                        <p id="add_btn">Add picture</p>
+                    </div>
+
+                    {% if other_imgs %}
+                        <div class="added_images" style="display: flex;" on>
+                            <!-- cards go here -->
+                            {% for img in other_imgs %}
+                                <div class="added_img" id="{{ img.count }}">
+                                    <div class="top">
+                                        <div>
+                                            <label for="image_{{ img.count }}" title="Upload image" id="{{ img.id }}">Upload image {{img.count}}</label>
+                                            <input type="file" accept=".jpeg, .jpg, .png" name="image_{{img.count}}" id="image_{{img.count}}" onchange="show_preview(event, 'img{{img.count}}_preview')" max="1048576">
+                                            <div class="preview show" id="img{{img.count}}_preview">
+                                                <img alt="" src="{{ img.image_url }}">
+                                                <p>{{ img.image_url|cut:"/media/events_images/" }} ({{ img.image_file_size|filesizeformat }})</p>
+                                            </div>
+                                        </div>
+                                        <p id="remove">-</p>
+                                    </div>
+                                    <div class="body">
+                                        <label for="description">Description</label>
+                                        <textarea type="text" name="description" id="description" maxlength="50" title="Give a short description of the image">{{ img.description }}</textarea>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="added_images">
+                            <!-- cards go here -->
+                        </div>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <div class="form_group content_section">
+                <h1>Content</h1>
+                <table class="tools">
+                    <tr>
+                        <td id="paragraph">New Paragraph</tdp>
+                        <td id="bold">Bold</td>
+                        <td id="italize">Italize</td>
+                        <td id="quote">Quote</td>
+                        <td id="link">Link</td>
+                    </tr>
+                </table>
+                <div class="add_link">
+                    <input type="url" id="link_url" placeholder="Enter url here">
+                    <p id="link_done">Done</p>
+                </div>
+                <textarea name="content" id="content">{{ event.content }}</textarea>
+            </div>
+
+            <div class="form_group date_section">
+                <h3>Event Date**</h3>
+                <input type="date" id="event_date" value="{{ event.date|date:'Y-m-d' }}">
+            </div>
+
+            <div class="form_group date_section">
+                <h3>Event Time</h3>
+                <input type="time" id="event_time" value="{{ event.date|time:'H:i' }}">
+            </div>
+
+            <p id="publish_btn">Update</p>
+        </form>
+   </div> 
+{% endblock content %}
+
+
+{% block script %}
+<script type="text/javascript">
+    function removePlaceholder(){
+        var picked_tags = document.querySelector('.selected_tags');
+        if (picked_tags.querySelectorAll('p').values()){
+            picked_tags.querySelector('h4').style.display = 'none !important';
+        }else{
+            picked_tags.querySelector('h4').style.display = 'block !important';
+        }
+    }
+
+    function show_preview(event, id){
+        let preview = document.getElementById(id);
+        if(event.target.files.length > 0){
+            let src = URL.createObjectURL(event.target.files[0]);
+            preview.classList.add('show');
+            preview.querySelector('img').src = src;
+            preview.querySelector('p').innerText = event.target.files[0].name + " (" + returnFileSize(event.target.files[0].size) + ")";
+            if(!validateFile(event.target.files[0].size, event.target.files[0].type)){
+                preview.querySelector('p').style.backgroundColor = 'hsla(0, 61%, 70%, 1)';
+            }else{
+                preview.querySelector('p').style.backgroundColor = '';
+            };
+        }else{
+            preview.classList.remove('show');
+        };
+    }
+
+    function validateFile(size, type, max_size=1048576, allowed_type='image/'){
+        if(fileSizeDoesNotExceed(size, max_size) && type.startsWith(allowed_type)){
+            return true;
+        }
+        return false;
+    }
+
+    function add_image_card(){
+        let image_card_container = document.querySelector('.added_images');
+        let cards = document.querySelectorAll('.added_img');
+        if (cards && cards.length > 0){
+            var num = parseInt(cards[cards.length-1].id) + 1;
+        }else{
+            var num = 1;
+        }
+        
+        let image_card = document.createElement('div');
+        image_card.classList.add('added_img');
+        image_card.id = num 
+        image_card.innerHTML =    `<div class="top">
+                                                        <div>
+                                                            <label for="image_${num}" title="Upload image">Upload image ${num}</label>
+                                                            <input type="file" accept=".jpeg, .jpg, .png" name="image_${num}" id="image_${num}" onchange="show_preview(event, 'img${num}_preview')" max="2097152">
+                                                            <div class="preview" id="img${num}_preview">
+                                                                <img alt="">
+                                                                <p></p>
+                                                            </div>
+                                                        </div>
+                                                        <p id="remove">-</p>
+                                                    </div>
+                                                    <div class="body">
+                                                        <label for="description">Description</label>
+                                                        <textarea type="text" name="description" id="description" maxlength="50" title="Give a short description of the image"></textarea>
+                                                    </div>`
+                                                
+        image_card_container.style.display = 'flex';
+        image_card_container.append(image_card);
+        image_card_container.lastChild.scrollIntoView(
+            {
+                behavior: 'smooth',
+                block: 'center'
+            }
+        );
+        if (num == 4){
+            let add_btn = document.querySelector('#add_btn');
+            add_btn.style.pointerEvents = 'none';
+            add_btn.style.opacity = '0.5';
+        }
+        return false;
+    }
+
+    function checkFormValidity(){
+        let title = document.querySelector('#title').value;
+        let no_of_tags = document.querySelectorAll('.selected_tags p').length;
+        let date = document.querySelector('#event_date').value;
+        let time = document.querySelector('#event_time').value;
+        let publish_btn = document.querySelector('#publish_btn');
+        let files = document.querySelectorAll('input[type=file]');
+        var all_valid = true;
+        files.forEach((file)=>{
+            if(file.files.length > 0 && validateFile(file.files[0].size, file.files[0].type) == false){
+                all_valid = false;
+            } 
+        }) 
+        if (title == '' || no_of_tags == 0 || date == '' || time=='' || all_valid == false){
+            publish_btn.style.pointerEvents = 'none';
+            publish_btn.style.opacity = '0.5';
+        }else{
+            publish_btn.style.pointerEvents = 'auto';
+            publish_btn.style.opacity = '1';
+        }
+        return false;
+    };
+
+    function searchTags(query){
+        let a_tags = document.querySelectorAll('.result_tags div p');
+        if(query){
+            a_tags.forEach((tag)=>{
+                if (!tag.innerText.replace('-', '').trim().toLowerCase().includes(query.toLowerCase())){
+                    tag.style.display = 'none';
+                }else{
+                    tag.style.display = 'block';
+                };
+            });
+        }else{
+            a_tags.forEach((tag)=>{
+                tag.style.display = 'block';
+            });
+        };
+    };
+
+    window.addEventListener('load', ()=>{
+        let publish_btn = document.querySelector('#publish_btn');
+        publish_btn.style.pointerEvents = 'none';
+        publish_btn.style.opacity = '0.5';
+
+        document.querySelectorAll('*').forEach((item) => {
+            item.addEventListener('input', ()=>{
+                setInterval(checkFormValidity, 1000);
+            });
+        });
+    });
+
+
+    window.addEventListener('click', (event) => {
+        let add_btn = document.querySelector('#add_btn');
+        let publish_btn = document.querySelector('#publish_btn');
+        if(add_btn.contains(event.target)){
+            add_image_card();
+        }
+
+        let image_cards = document.querySelectorAll('.added_img');
+        if(image_cards && image_cards.length > 0){
+
+            image_cards.forEach(card => {
+                if(card.querySelector('#remove').contains(event.target)){
+                    let add_btn = document.querySelector('#add_btn');
+                    add_btn.style.pointerEvents = 'auto';
+                    add_btn.style.opacity = '1';
+                    card.querySelector('input[type=file]').value = null;
+                    card.remove();
+                    if (document.querySelectorAll('.added_img') && document.querySelectorAll('.added_img').length == 0){
+                        document.querySelector('.added_images').style.display = 'none';
+                    }
+                };
+            });
+
+        };
+
+        let create_tag_btn = document.querySelector('#create_tag');
+        let tag_create_form = document.querySelector('.create_tags');
+        if(create_tag_btn.contains(event.target)){
+            tag_create_form.classList.toggle('show');
+            if(tag_create_form.classList.contains('show')){
+                create_tag_btn.innerHTML= 'Close';
+            }else{
+                create_tag_btn.innerHTML= 'Create New Tag';
+                tag_create_form.querySelector('input').value = '';
+                tag_create_form.querySelector('textarea').value = '';
+            };
+            tag_create_form.querySelector('input').focus();
+        }
+
+        let available_tags_container = document.querySelector('.result_tags div');
+        let available_tags = document.querySelectorAll('.result_tags div p');
+        let chosen_tags_container = document.querySelector('.selected_tags');
+        let selected_tags = document.querySelectorAll('.selected_tags p');
+        available_tags.forEach(tag => {
+            if (tag.contains(event.target)){
+                tag.remove();
+                tag.innerHTML = tag.innerText.replace('+', '-');
+                tag.onclick = "";
+                chosen_tags_container.append(tag)
+            } 
+        });
+
+        selected_tags.forEach(tag => {
+            if (tag.contains(event.target)){
+                tag.remove();
+                tag.innerHTML = tag.innerText.replace('-', '+');
+                tag.addEventListener("click", () => {
+                    removePlaceholder();
+                });
+                available_tags_container.append(tag)
+            } 
+        });
+
+        function apply_tool_without_selection(tool_id, context_box){
+            var selection_start = context_box.selectionStart;
+            var selection_end = context_box.selectionEnd;
+            switch( tool_id){
+                case 'paragraph':
+                    if(context_box.value.length == 0){
+                        var tool_value = '[paragraph]\r\r[/paragraph]';
+                        context_box.value = context_box.value.substring(0, selection_start) + tool_value + context_box.value.substring(selection_end);
+                        context_box.focus();
+                        context_box.selectionEnd = context_box.value.substring(0, selection_start).length + 12;
+                    }else{
+                        var tool_value = '\r[paragraph]\r\r[/paragraph]';
+                        context_box.value = context_box.value.substring(0, selection_start) + tool_value + context_box.value.substring(selection_end);
+                        context_box.focus();
+                        context_box.selectionEnd = context_box.value.substring(0, selection_start).length + 13; 
+                    }
+                    break
+
+                case 'bold':
+                    context_box.value = context_box.value.substring(0, selection_start) + '[bold][/bold]' + context_box.value.substring(selection_end);
+                    context_box.focus();
+                    context_box.selectionEnd = context_box.value.substring(0, selection_start).length + 6;
+                    break
+
+                case  'italize':
+                    context_box.value = context_box.value.substring(0, selection_start) + '[italic][/italic]' + context_box.value.substring(selection_end);
+                    context_box.focus();
+                    context_box.selectionEnd = context_box.value.substring(0, selection_start).length + 8;
+                    break
+
+                case 'quote':
+                    context_box.value = context_box.value.substring(0, selection_start) + '[quote][/quote]' + context_box.value.substring(selection_end);
+                    context_box.focus();
+                    context_box.selectionEnd = context_box.value.substring(0, selection_start).length + 7;
+                    break
+
+                case 'link':
+                    let add_link = document.querySelector('.add_link');
+                    let link_done_btn = document.querySelector('#link_done');
+                    add_link.classList.toggle('show');
+                    add_link.querySelector('input').focus();
+                    link_done_btn.addEventListener('click', ()=>{
+                        var link_url = document.querySelector('#link_url').value;
+                        context_box.value = context_box.value.substring(0, selection_start) + `[link url="${link_url}"][/link]` + context_box.value.substring(selection_end);
+                        add_link.classList.remove('show');
+                        add_link.querySelector('input').value = '';
+                        context_box.focus();
+                        context_box.selectionEnd = context_box.value.substring(0, selection_start).length + 13 + link_url.length;
+                    });
+                    break
+            };
+        };
+
+        function apply_tool_with_selection(tool_id, content_box){
+            var selection_start = content_box.selectionStart;
+            var selection_end = content_box.selectionEnd;
+            var selected_text = content_box.value.substring(selection_start, selection_end);
+            switch(tool_id){
+                case 'paragraph':
+                    content_box.value = content_box.value.substring(0, selection_start) + '[paragraph]' + selected_text + '[/paragraph]' + content_box.value.substring(selection_end);
+                    content_box.focus();
+                    content_box.selectionEnd = selection_end + 23;
+                    break
+
+                case 'bold':
+                    content_box.value = content_box.value.substring(0, selection_start) + '[bold]' + selected_text + '[/bold]' + content_box.value.substring(selection_end);
+                    content_box.focus();
+                    content_box.selectionEnd = selection_end + 13;
+                    break
+
+                case  'italize':
+                    content_box.value = content_box.value.substring(0, selection_start) + '[italic]' + selected_text + '[/italic]' + content_box.value.substring(selection_end);
+                    content_box.focus();
+                    content_box.selectionEnd = selection_end + 17;
+                    break
+
+                case 'quote':
+                    content_box.value = content_box.value.substring(0, selection_start) + '[quote]' + selected_text + '[/quote]' + content_box.value.substring(selection_end);
+                    content_box.focus();
+                    content_box.selectionEnd = selection_end + 15;
+                    break
+
+                case 'link':
+                    let add_link = document.querySelector('.add_link');
+                    let link_done_btn = document.querySelector('#link_done');
+                    add_link.classList.toggle('show');
+                    add_link.querySelector('input').focus();
+                    link_done_btn.addEventListener('click', ()=>{
+                        var link_url = document.querySelector('#link_url').value;
+                        console.log(link_url);
+                        content_box.value = content_box.value.substring(0, selection_start) + `[link url="${link_url}"]` + selected_text + '[/link]' + content_box.value.substring(selection_end);
+                        add_link.classList.remove('show');
+                        add_link.querySelector('input').value = '';
+                        content_box.focus();
+                        content_box.selectionEnd = selection_end + 20 + link_url.length;
+                    });
+                    break
+            };
+        };
+
+        let tools = document.querySelectorAll('.tools tr td');
+        let context_box = document.querySelector('#content');
+        tools.forEach(tool =>{
+            if (tool.contains(event.target)){
+                context_box.focus()
+                if(context_box.selectionStart == context_box.selectionEnd){
+                    apply_tool_without_selection(tool.id, context_box);
+                }else{
+                    console.log('yeah');
+                    apply_tool_with_selection(tool.id, context_box);
+                };  
+            };
+        });
+
+        if (document.querySelector('#add_tag').contains(event.target) && document.querySelector('.create_tags input').value){
+            event.stopImmediatePropagation();
+            let tag_name = document.querySelector('.create_tags input').value;
+            let tag_description = document.querySelector('.create_tags textarea').value;
+            $.ajax({
+                url: '{% url "create_tag" %}',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    'name': tag_name,
+                    'description': tag_description,
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                success: (response)=>{
+                    if (response['success']){
+                        available_tags_container.innerHTML += `<p>${response['tag']} +</p>`;
+                        tag_create_form.querySelector('input').value = '';
+                        tag_create_form.querySelector('textarea').value = '';
+                    }else{
+                        tag_create_form.querySelector('input').checkValidity() = false;
+                        tag_create_form.querySelector('input').style.borderColor = 'hsla(0, 61%, 70%, 0.8)';
+                        alert('Tag already exists');
+                        tag_create_form.querySelector('input').addEventListener('input', ()=>{
+                            tag_create_form.querySelector('input').style.borderColor = '';
+                        });
+                    }
+                },
+            });
+        };
+
+        if (publish_btn.contains(event.target)){
+            event.stopImmediatePropagation();
+            publish_btn.style.opacity = '0.8';
+            publish_btn.style.pointerEvents = 'None';
+            let event_data = new FormData;
+            let title = document.querySelector('#title');
+            let event_content = document.querySelector('#content');
+            let event_date = document.querySelector('#event_date');
+            let event_time = document.querySelector('#event_time');
+            let thumbnail = document.querySelector('#thumbnail_img');
+            let final_tags = [];
+            selected_tags.forEach(tag=>{
+                final_tags.push(tag.innerText.replace('-', '').trim());
+            })
+            text_data = {
+                'title': title.value,
+                'selected_tags': final_tags,
+                'content': event_content.value,
+                'date': event_date.value,
+                'time': event_time.value,
+                'imgs_received_ids': [],
+                'changed': [],
+            }
+    
+            for(var i=0; i < image_cards.length; i++){
+                if(image_cards[i].querySelector('label').id != ''){
+                    text_data['imgs_received_ids'].push(image_cards[i].querySelector('label').id)
+                }
+
+                if( image_cards[i].querySelector('input[type=file]').files.length > 0 ){
+                    if(image_cards[i].querySelector('label').id != ''){
+                        let changed_det ={
+                            'img_id': image_cards[i].querySelector('label').id,
+                            'filename': 'other_image_'+ (i + 1),
+                        };
+                        text_data['changed'].push(changed_det)
+                    }
+                    event_data.append('other_image_'+ (i + 1), image_cards[i].querySelector('input[type=file]').files[0]);
+                    event_data.append('other_image_'+(i+1)+'_description', image_cards[i].querySelector('#description').value);
+                }
+            };
+            event_data.append('text_data', JSON.stringify(text_data));
+            event_data.append('thumbnail_img', thumbnail.files[0] || null);
+
+            $.ajax({
+                url: '{% url "event_update" event.slug %}',
+                method: 'POST',
+                data: event_data,
+                contentType: false,
+                dataType: 'json',
+                processData: false,
+                // cache: false,
+                headers: {
+                    'X-CSRFToken': getCookie("csrftoken"),
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                success: (response) => {
+                    if (!response['success']){
+                        alert('Could not update event')
+                    }else{
+                        slug = response['event_slug'];
+                        window.location.href = `/events/${slug}` ;
+                    }
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+
+        };
+        
+    });
+</script>
+{% endblock script %}

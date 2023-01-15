@@ -12,8 +12,8 @@ urlpatterns = [
     path('events/publish/', EventCreateView.as_view(), name='publish'),
     path('all-events/', TagEventListView.as_view(), name="tag_events"),
     path('events/<str:slug>/', EventDetailView.as_view(), name="event_detail"),
+    path('events/<str:slug>/update/', EventUpdateView.as_view(), name="event_update"),
+    path('events/<str:slug>/delete/', EventDeleteView.as_view(), name="event_delete"),
     path('tags/create/', TagCreateView.as_view(), name="create_tag"),
-    path('articles/create/', EventCreateView.as_view(), name="create_article"),
-    path('article/<int:pk>/delete/', EventDeleteView.as_view(), name="delete_article"),
-    path('article/<int:pk>/update/', EventUpdateView.as_view(), name="update_article"),
+    
 ]

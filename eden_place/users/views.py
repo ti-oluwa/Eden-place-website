@@ -2,8 +2,9 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse, JsonResponse
 # from .forms import UserRegistrationForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import Student, Staff, CustomUser
+from django.contrib.auth.decorators import user_passes_test, login_required
 import json
 
 
@@ -58,7 +59,6 @@ def validate(request):
     else:
         response["message"] = "Forbidden request"
         return JsonResponse(response, status=403)
-        
 
 
 
@@ -77,7 +77,7 @@ def auth(request, *args, **kwargs):
                 messages.success(request, "LOGGED IN")
                 if kwargs.get('next'):
                     return redirect(kwargs.get('next'))
-                return redirect('publish')
+                return redirect('home')
 
         messages.error(request, "USER NOT FOUND!")
         return redirect('login')
@@ -105,7 +105,7 @@ def authenticate_by_name(request, username, password, kwargs):
             messages.success(request, "LOGGED IN")
             if kwargs.get('next'):
                     return redirect(kwargs.get('next'))
-            return redirect('publish')
+            return redirect('home')
 
         messages.error(request, "YOU'RE NOT ALLOWED TO LOGIN!")
         return redirect('login')
@@ -114,3 +114,7 @@ def authenticate_by_name(request, username, password, kwargs):
         messages.error(request, "LOGIN FAILED\n Enter a valid password\n If you are sure of your password, including your other name might help")
         return redirect('login')
 
+@login_required
+def un_auth(request, *args, **kwargs):
+    logout(request)
+    return redirect('home')

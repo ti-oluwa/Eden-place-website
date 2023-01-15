@@ -819,9 +819,7 @@ button:disabled{
 }
 
 @media screen and (max-width: 828px){
-    .showcase{
-        margin-top: 0px;
-    }
+   
 }
 
 @media screen and (max-width: 768px){

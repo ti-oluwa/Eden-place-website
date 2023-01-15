@@ -18,7 +18,7 @@ class EventCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Event
 
     def test_func(self):
-        if self.request.user.is_staff or self.request.user.is_superuser:
+        if self.request.user.is_admin or self.request.user.is_superuser:
             return True
         return False
 
@@ -212,31 +212,197 @@ class FaqView(ListView):
 
 
 
-class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
     '''View for updating a event'''
     model = Event
-    fields = ['title', 'overview', 'content', 'tags', 'thumbnail', 'sub_image1', 'sub_image2', 'sub_image3', 'sub_image4', 'video']
+    template_name = 'blog/event_update.html'
+    context_object_name = 'event'
 
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    def get_object(self):
+        obj_slug = self.kwargs.get('slug')
+        return get_object_or_404(self.model, slug=obj_slug)
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, self.get_context_data())
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            event = self.get_object()
+            data, files = request.POST, request.FILES
+        
+            if files:
+                # set thumbnail image if changed
+                if files.get('thumbnail_img'):
+                    event.main_image = files.get('thumbnail_img')
+                    
+            if data:
+                # Get data from request.POST- data
+                descriptions = {}
+                text_data = json.loads(data['text_data'])
+                title = text_data.get('title')
+                content = text_data.get('content')
+                selected_tags = text_data.get('selected_tags')
+                date = text_data.get('date').split('-')
+                time = text_data.get('time').split(':')
+                date_time = datetime.datetime(year=int(date[0]), month=int(date[1]), day=int(date[2]), hour=int(time[0]), minute=int(time[1]))
+                imgs_received_ids = text_data.get('imgs_received_ids')
+                changed = text_data.get('changed')
+                imgs_sent_ids = [ img['id'] for img in self.get_sub_images() ]
+
+                # Set img and descriptions of the ids of images that were sent on GET request and were not received back to None in the POST request. It means they were removed.
+                for img_sent_id in imgs_sent_ids:
+                    id = str(img_sent_id)
+                    if id not in imgs_received_ids:
+                        match id:
+                            case '1':
+                                event.sub_image1, event.sub_image1_description = None, None
+                            case '2':
+                                print('YEah')
+                                event.sub_image2, event.sub_image2_description = None, None
+                            case '3':
+                                event.sub_image3, event.sub_image3_description = None, None
+                            case '4':
+                                event.sub_image4, event.sub_image4_description = None, None
+
+                # get all image descriptions in the text_data
+                for key, value in data.items():
+                    if key.endswith('description'):
+                        descriptions.update({key: value})
+                # set new title if changed
+                if event.title.lower() != title.lower():
+                    event.title == title
+
+                # set new content if changed
+                if event.content != content:
+                    event.content = content
+
+                # add new tags
+                if selected_tags:
+                    for tag_name in selected_tags:
+                        tag = Tag.objects.filter(name=tag_name).first()
+                        if tag not in event.tags.all():
+                            event.tags.add(tag)
+                
+                # set new date if changed
+                new_date = timezone.make_aware(date_time)
+                if event.date != new_date:
+                    event.date = new_date
+
+                if files:
+                    # Implement new changes made to the images sent with the GET request
+                    for changed_img_detail in changed:
+                        img_id = changed_img_detail.get('img_id')
+                        if img_id in imgs_received_ids:
+                            new_filename = changed_img_detail.get('filename')
+                            new_description = "%s_description" % new_filename
+
+                            if img_id == "1":
+                                event.sub_image1 = files.get(new_filename, None)
+                                event.sub_image1_description = descriptions.get(new_description, '')
+                            elif img_id == "2":
+                                event.sub_image2 = files.get(new_filename, None)
+                                event.sub_image2_description = descriptions.get(new_description, '')
+                            elif img_id == "3":
+                                event.sub_image3 = files.get(new_filename, None)
+                                event.sub_image3_description = descriptions.get(new_description, '')
+                            elif img_id == "4":
+                                event.sub_image4 = files.get(new_filename, None)
+                                event.sub_image4_description = descriptions.get(new_description, '')
+                    
+                    # add new images sent with POST request    
+                    changed_imgs_names = [ changed_img_det.get('filename') for changed_img_det in changed ]
+                    new_images = []
+                    for key, value in files.items():
+                        if key.startswith('other_image') and key not in changed_imgs_names:
+                            image_description = descriptions.get('{}_description'.format(key), '')
+                            new_images.append({'name': key, 'file': value, 'description': image_description})
+
+                    for image in new_images:
+                        if 'other_image_1' in image['name']:
+                            event.sub_image1 = image.get('file', None)
+                            event.sub_image1_description = image.get('description', '')
+
+                        elif 'other_image_2' in image['name']:
+                            event.sub_image2 = image.get('file', None)
+                            event.sub_image2_description = image.get('description', '')
+
+                        elif 'other_image_3' in image['name']:
+                            event.sub_image3 = image.get('file', None)
+                            event.sub_image3_description = image.get('description', '')
+
+                        elif 'other_image_4' in image['name']:
+                            event.sub_image4 = image.get('file', None)
+                            event.sub_image4_description = image.get('description', '')
+
+                event.save()      
+
+            return JsonResponse(data={'success': True, 'event_slug': event.slug}, status=200)
+        
+        except Exception as e:
+            print(e)
+            return JsonResponse(data={'success': False}, status=200)
+
+
+    def get_context_data(self, **kwargs):
+        context = {}
+        object = self.get_object()
+        context['event'] = object
+        other_imgs = []
+
+        for tag in object.tags.all():
+            all_tags = Tag.objects.all().exclude(id=tag.id)
+
+        context['all_tags'] = all_tags
+        context['other_imgs'] = self.get_sub_images()
+        return context
 
     def test_func(self):
-        if self.request.user.is_staff or self.request.user.is_superuser:
+        if self.request.user.is_admin or self.request.user.is_superuser:
             return True
         return False
 
+    def get_sub_images(self):
+        object = self.get_object()
+        sub_images = []
+        count = 0
+        if object.sub_image1:
+            count += 1
+            sub_images.append({'id': 1, 'image_url': object.sub_image1.url, 'image_file_size': object.sub_image1.file.size, 'description': object.sub_image1_description, "count": count})
+        
+        if object.sub_image2:
+            count += 1
+            sub_images.append({'id': 2, 'image_url': object.sub_image2.url, 'image_file_size': object.sub_image2.file.size, 'description': object.sub_image2_description, "count": count})
+        
+        if object.sub_image3:
+            count += 1
+            sub_images.append({'id': 3, 'image_url': object.sub_image3.url, 'image_file_size': object.sub_image3.file.size, 'description': object.sub_image3_description, "count": count})
+        
+        if object.sub_image4:
+            count += 1
+            sub_images.append({'id': 4, 'image_url': object.sub_image4.url, 'image_file_size': object.sub_image4.file.size, 'description': object.sub_image4_description, "count": count})
 
-class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+        return sub_images
+
+
+class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
     '''View for deleting a event'''
     model = Event
-    success_url = "/"
+    success_url = "/events/"
+
+    def get(self, request, *args, **kwargs):
+        object = self.get_object()
+        object.delete()
+        return redirect(self.success_url)
 
     def test_func(self, **kwargs):
-        if self.request.user.is_superuser or self.request.user == get_object_or_404(Event, id=kwargs.get('pk')).author:
+        if self.request.user.is_superuser or self.request.user.is_admin or self.request.user == get_object_or_404(Event, id=kwargs.get('pk')).author:
             return True
         return False
-    
+
+    def get_object(self):
+        slug = self.kwargs.get('slug', '')
+        return self.model.objects.filter(slug=slug).first()
 
 
 

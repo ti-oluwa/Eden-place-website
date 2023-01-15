@@ -24,6 +24,7 @@ urlpatterns = [
     path('', include('blog.urls'), name="home"),
     # path('signup/', user_views.register, name="register"),
     path('signin/', user_views.auth, name="login"),
+    path('signout/', user_views.un_auth, name="logout"),
     path('signin/ajax-validate/', user_views.validate, name="validate")
 ]
 

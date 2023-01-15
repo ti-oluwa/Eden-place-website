@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/edenplace-logo.webp' %}">
     {% block styles %}
     {% endblock styles %}
     {% block title %}
@@ -16,7 +17,10 @@
     <header>
         <div class="container header_items">
             <div class="header_logo">
-                <a href="{% url 'home' %}">Eden Place</a>
+                <a href="{% url 'home' %}">
+                    <img src="{% static 'images/edenplace-logo.webp' %}" alt="eden place logo" style="width: clamp(60px, 4vw, 80px); height: 90%;">
+                    Eden Place
+                </a>
             </div>
 
             <div class="header_links">
@@ -33,15 +37,15 @@
                     <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
                     <div class="dropdown">
                         <div class="dropdown_items">
-                            <a href="{% url 'enroll' %}"><img src="{% static 'images/enroll.jpg' %}" alt="enroll"></a>
+                            <a href="{% url 'enroll' %}"><img src="{% static 'images/enroll.webp' %}" alt="enroll"></a>
                             <a href="{% url 'enroll' %}">Enrollment</a>
                         </div>
                         <div class="dropdown_items">
-                            <a href="{% url 'faqs' %}"><img src="{% static 'images/curriculum.jpg' %}" alt="curriculum"></a>
+                            <a href="{% url 'faqs' %}"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
                             <a href="{% url 'faqs' %}">FAQs</a>
                         </div>
                         <div class="dropdown_items">
-                            <a href="{% url 'contact' %}"><img src="{% static 'images/never_stop_learning.jpg' %}" alt="pupils"></a>
+                            <a href="{% url 'contact' %}"><img src="{% static 'images/never_stop_learning.webp' %}" alt="pupils"></a>
                             <a href="{% url 'contact' %}">Contact us</a>
                         </div>
                     </div>
@@ -52,15 +56,15 @@
                     <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
                     <div class="dropdown">
                         <div class="dropdown_items">
-                            <a href="#"><img src="{% static 'images/enroll.jpg' %}" alt="enroll"></a>
-                            <a href="">Curriculae</a>
+                            <a href="#"><img src="{% static 'images/enroll.webp' %}" alt="enroll"></a>
+                            <a href="">School Policies</a>
                         </div>
                         <div class="dropdown_items">
-                            <a href="#"><img src="{% static 'images/curriculum.jpg' %}" alt="curriculum"></a>
-                            <a href="">Open events</a>
+                            <a href="#"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
+                            <a href="">Jobs and Hiring</a>
                         </div>
                         <div class="dropdown_items">
-                            <a href="#"><img src="{% static 'images/never_stop_learning.jpg' %}" alt="pupils"></a>
+                            <a href="#"><img src="{% static 'images/never_stop_learning.webp' %}" alt="pupils"></a>
                             <a href="">Calendar</a>
                         </div>
                     </div>
@@ -83,13 +87,16 @@
             </div>
 
             <div class="sub_container">
-                <div class="header_link">
-                    <a href="{% url 'login' %}">Log in</a>
-                </div>
-
-                <div class="header_link">
-                    <a href="{% url 'contact' %}">Contact</a>
-                </div>
+                {% if not request.user.is_authenticated %}
+                    <a class="header_link" href="{% url 'login' %}">Log in</a>
+                    <a class="header_link" href="{% url 'contact' %}">Contact</a>
+                {% elif request.user.is_staff and not request.user.is_admin or user.is_student %}
+                    <a class="header_link" href="{% url 'logout' %}">Log out</a>
+                    <a class="header_link" href="">Dashboard</a>
+                {% elif request.user.is_admin or request.user.is_superuser %}
+                    <a class="header_link" href="{% url 'publish' %}">Publish</a>
+                    <a class="header_link" href="{% url 'logout' %}">Log out</a>
+                {% endif %}
             </div>
 
             <div class="hamburger_container">
@@ -113,9 +120,11 @@
     <!-- Menu after nav collapses completely-->
     <div class="main_menu">
         <div class="menu_signin_btn">
-            <button type="button" id='login_btn'  href="">
-                Login
-            </button>
+            {% if request.user.is_authenticated %}
+                <a id='login_btn'  href="{% url 'logout' %}">Logout</a>
+            {% else %}  
+                <a id='login_btn'  href="{% url 'login' %}">Login</a>
+            {% endif %} 
         </div>
         <div class="menu_items">
             <a href="{% url 'home' %}">Home</a>
@@ -140,8 +149,8 @@
                 <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
             </div>
             <div class="drop">
-                <div class="drop_item"><a href="">Curriculae</a></div>
-                <div class="drop_item"><a href="">Open events</a></div>
+                <div class="drop_item"><a href="">School Policies</a></div>
+                <div class="drop_item"><a href="">Jobs and Hiring</a></div>
                 <div class="drop_item"><a href="">Calendar</a></div>
             </div>     
         </div>
@@ -181,7 +190,7 @@
                             </p>
                             <a href="https://maps.google.com/maps/dir//6.77469,3.403056/@6.77469,3.403056,17z">
                                 Get directions
-                                <img src="../../static/images/left-arrow.svg" alt="" style="width: clamp(10px, 2vw, 12px); height: clamp(10px, 2vw, 12px);">
+                                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(10px, 2vw, 12px); height: clamp(10px, 2vw, 12px);">
                             </a>
                         </div>
                     </div>
@@ -200,8 +209,8 @@
     </footer>
 </body>
 
-<script type="text/javascript" src="{% static 'blog/jquery-3.6.1.min.js' %}"></script>
-<script type="text/javascript">
+<script src="{% static 'users/jquery-3.6.1.min.js' %}"></script>
+<script>
 
     function getCookie(name) {
         let cookieValue = null;
@@ -294,7 +303,7 @@
             document.getElementsByClassName('nav_collapse')[0].classList.toggle('show');
         };
         // closes the main menu when the screen width > 828px
-        if(window.innerWidth > 828){
+        if(window.innerWidth > 860){
             document.querySelector('.main_menu').classList.remove('open_menu');
             document.querySelector('body').classList.remove('stop_scroll');
             document.querySelector('#login_btn').classList.add('stop_anim');
@@ -308,7 +317,7 @@
         isScrollOnMenu = document.querySelector('.main_menu').contains(e.target)
         if (!isScrollOnMenu){
             var scrollPosition = document.documentElement.scrollTop;
-            if (scrollPosition >= window.innerHeight * 0.5){
+            if (scrollPosition >= window.clientHeight * 0.5){
                 document.querySelector('header').classList.add('hide');
                 document.getElementsByClassName('nav_collapse')[0].classList.remove('show');
                 oldScrollPosition = scrollPosition;            

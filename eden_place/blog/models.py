@@ -3,7 +3,7 @@ from django.db import models
 from users.models import CustomUser
 # from PIL import Image
 from django.urls import reverse
-import random
+from django.template.defaultfilters import slugify 
 
 
 class Tag(models.Model):
@@ -62,7 +62,7 @@ class Event(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             count = len(Event.objects.filter(title=self.title.lower()))
-            slug = self.title.lower().replace(' ', '-')
+            slug = slugify(self.title)
             if count > 0:
                 self.slug = f"{slug}-{count}"
             else:

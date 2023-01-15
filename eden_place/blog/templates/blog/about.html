@@ -13,7 +13,7 @@
     <div class="container">
         <div class="showcase">
             <div class="showcase_main">
-                <img src="../../static/images/landing2.jpg" alt="" style="width: 100%; height: 100%;">
+                <img src="{% static 'images/landing2.webp' %}" alt="" style="width: 100%; height: 100%;">
                 <div class="main_card">
                     <div>
                         <h3>Eden Place Schools</h3>
@@ -53,14 +53,14 @@
         <section class="section">
             <div class="section_image">
                 <div class="img_main">
-                    <img src="../../static/images/curriculum.jpg" alt="">
+                    <img src="{% static 'images/curriculum.webp' %}" alt="">
                     <div class="frame"></div>
                 </div>
                 <div class="img_sub1">
-                    <img src="../../static/images/never_stop_learning.jpg" alt="">
+                    <img src="{% static 'images/never_stop_learning.webp' %}" alt="">
                 </div>
                 <div class="img_sub2">
-                    <img src="../../static/images/landing3.jpg" alt="">
+                    <img src="{% static 'images/landing3.webp' %}" alt="">
                 </div>
             </div>
 
@@ -132,7 +132,7 @@
 
         <div class="showcase_img" style="scroll-behavior: smooth;">
             <div class="img">
-                <img src="../../static/images/landing1.jpg" alt="">
+                <img src="{% static 'images/landing1.webp' %}" alt="">
                 <div class="main_card">
                     <div>
                         <h3>Inauguration and Opening</h3>
@@ -141,7 +141,7 @@
                 </div>
             </div>
             <div class="img">
-                <img src="../../static/images/landing2.jpg" alt="">
+                <img src="{% static 'images/landing2.webp' %}" alt="">
                 <div class="main_card">
                     <div>
                         <h3>Nigerian Inter School Games</h3>
@@ -150,7 +150,7 @@
                 </div>
             </div>
             <div class="img">
-                <img src="../../static/images/landing3.jpg" alt="">
+                <img src="{% static 'images/landing3.webp' %}" alt="">
                 <div class="main_card">
                     <div>
                         <h3>2020/21 Session Valedictory Service</h3>
@@ -194,7 +194,7 @@
                 </div>
 
                 <div class="head_img">
-                    <img src="../../static/images/landing3.jpg" alt="">
+                    <img src="{% static 'images/landing3.webp' %}" alt="">
                     <div class="frame"></div>
                 </div>
             </div>
@@ -212,7 +212,7 @@
             </p>
             <a href="" class="apply_btn">
                 View our policies
-                <img src="../../static/images/left-arrow.svg" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
             </a>     
         </section>
 
@@ -223,12 +223,12 @@
         <section class="window_section" id="jobs">
             <h1 class="text_head">Jobs and Hiring</h1>
             <div class="window">
-                <img class="window_img" src="../../static/images/enroll.jpg" alt="">
+                <img class="window_img" src="{% static 'images/enroll.webp' %}" alt="">
                 <div class="window_text">
                     <p>Eden Place is an exciting place to teach and to learn. Find out more about opportunities to join our staff.</p>
                     <a href="" class="apply_btn" style="background-color: var(--button-bg-color);">
                         Work with us
-                        <img src="../../static/images/left-arrow.svg" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+                        <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
                     </a>     
                 </div>
             </div>
@@ -240,16 +240,6 @@
 
 {% block script %}
 <script type="text/javascript">
-    window.addEventListener( 'resize', () => {
-        let showcase_imgs = document.querySelectorAll('.showcase_img');
-        var images = document.querySelectorAll('.img');
-        images.forEach(image => {
-            image.querySelector('img').style.width = showcase_imgs[0].clientWidth + 'px';
-        });
-    });
-
-
-
     window.addEventListener( 'load', () => {
         let quick_links = document.querySelectorAll('.quick_nav div a');
         quick_links.forEach((link)=>{
@@ -266,9 +256,7 @@
         
         let showcase_imgs = document.querySelectorAll('.showcase_img');
         var images = document.querySelectorAll('.img');
-        images.forEach(image => {
-            image.querySelector('img').style.width = showcase_imgs[0].clientWidth + 'px';
-        });
+       
 
         var img_width = showcase_imgs[0].querySelectorAll('.img')[0].clientWidth;
         
@@ -334,7 +322,7 @@
                     entry.target.classList.remove('display_card');
                 }
             });
-        });
+        }, {root: showcase_imgs[0]});
 
         showcase_imgs.forEach(showcase_img => {
             showcase_img.querySelectorAll('.main_card').forEach(card => {

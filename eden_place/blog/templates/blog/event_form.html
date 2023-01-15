@@ -52,7 +52,7 @@
                 <div class="main_img">
                     <h3>Thumbnail Image**</h3>
                     <label for="thumbnail_img" title="Upload image">Select Image</label>
-                    <input type="file" accept=".jpeg, .jpg, .png" name="thumbnail_img" id="thumbnail_img" onchange="show_preview(event, 'thumbnail_img_preview')" max="2097152">
+                    <input type="file" accept=".jpeg, .jpg, .png" name="thumbnail_img" id="thumbnail_img" onchange="show_preview(event, 'thumbnail_img_preview')" max="1048576">
                     <div class="preview" id="thumbnail_img_preview">
                         <img alt="">
                         <p></p>
@@ -87,7 +87,7 @@
                     <input type="url" id="link_url" placeholder="Enter url here">
                     <p id="link_done">Done</p>
                 </div>
-                <textarea name="" id="content"></textarea>
+                <textarea name="content" id="content"></textarea>
             </div>
 
             <div class="form_group date_section">
@@ -164,7 +164,7 @@
         };
     }
 
-    function validateFile(size, type, max_size=2097152, allowed_type='image/'){
+    function validateFile(size, type, max_size=1048576, allowed_type='image/'){
         if(fileSizeDoesNotExceed(size, max_size) && type.startsWith(allowed_type)){
             return true;
         }
@@ -223,10 +223,10 @@
         let time = document.querySelector('#event_time').value;
         let publish_btn = document.querySelector('#publish_btn');
         let files = document.querySelectorAll('input[type=file]');
-        var all_valid = false;
+        var all_valid = true;
         files.forEach((file)=>{
-            if(file.files.length > 0){
-                all_valid = validateFile(file.files[0].size, file.files[0].type);
+            if(file.files.length > 0 && validateFile(file.files[0].size, file.files[0].type) == false){
+                all_valid = false;
             } 
         }) 
         if (title == '' || no_of_tags == 0 || !thumbnail_img || date == '' || time=='' || !all_valid){
@@ -495,8 +495,10 @@
             event_data.append('text_data', JSON.stringify(text_data));
             event_data.append('thumbnail_img', thumbnail.files[0]);
             for(var i=0; i < image_cards.length; i++){
-                event_data.append('other_image_'+ (i + 1), image_cards[i].querySelector('input[type=file]').files[0]);
-                event_data.append('other_image_'+(i+1)+'_description', image_cards[i].querySelector('#description').value);
+                if(image_cards[i].querySelector('input[type=file]').files.length > 0){
+                    event_data.append('other_image_'+ (i + 1), image_cards[i].querySelector('input[type=file]').files[0]);
+                    event_data.append('other_image_'+(i+1)+'_description', image_cards[i].querySelector('#description').value);
+                }   
             };
 
             $.ajax({

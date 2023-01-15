@@ -855,9 +855,9 @@ button:disabled{
 }
 
 @media screen and (max-width: 828px) {
-    .page_head{
+    /* .page_head{
         margin-top: 40px;
-    }
+    } */
 }
 
 @media screen and (max-width:480px){
