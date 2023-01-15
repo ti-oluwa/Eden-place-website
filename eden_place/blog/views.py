@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import JsonResponse
-from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView, View
+from django.views.generic import CreateView, ListView, DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from .models import Event, Tag, Faq
@@ -10,11 +10,13 @@ from django.http import Http404, HttpResponseForbidden
 import json
 from django.utils import timezone
 import datetime
+from zoneinfo import ZoneInfo
+from django.conf import settings
 
 class EventCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     form_class = EventCreateForm
     template_name = 'blog/event_form.html'
-    tags = Tag.objects.all()
+    tags = Tag.objects.all().exclude(name='Upcoming').exclude(name='Past')
     model = Event
 
     def test_func(self):
@@ -49,7 +51,7 @@ class EventCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
                 content = text_data.get('content')
                 date = text_data.get('date').split('-')
                 time = text_data.get('time').split(':')
-                date_time = datetime.datetime(year=int(date[0]), month=int(date[1]), day=int(date[2]), hour=int(time[0]), minute=int(time[1]))
+                date_time = datetime.datetime(year=int(date[0]), month=int(date[1]), day=int(date[2]), hour=int(time[0]), minute=int(time[1]), tzinfo=ZoneInfo(settings.TIME_ZONE))
                 thumbnail_img = all_files.get('thumbnail_img')
                 other_images = []
 
@@ -57,12 +59,13 @@ class EventCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
                     if key.startswith('other_image'):
                         image_description = descriptions.get('{}_description'.format(key))
                         other_images.append({'file': value, 'description': image_description})
-                for i in range(4-len(other_images)):
+                for _ in range(4-len(other_images)):
                     other_images.append(None)
 
-                new_event = self.model.objects.create(title=title.lower(), content=content, main_image=thumbnail_img, date=timezone.make_aware(date_time), author=request.user)
-                for tag in selected_tags:
-                    new_event.tags.add(Tag.objects.filter(name=tag).first())
+                new_event = self.model.objects.create(title=title.lower(), content=content, main_image=thumbnail_img, date=date_time, author=request.user)
+                for tag_name in selected_tags:
+                    tag = get_object_or_404(Tag, name=tag_name.capitalize())
+                    new_event.tags.add(tag)
 
                 if other_images[0]:
                     new_event.sub_image1 = other_images[0].get('file')
@@ -103,13 +106,19 @@ class TagCreateView(LoginRequiredMixin, UserPassesTestMixin, View):
 
         if is_ajax:
             tag = request.POST
-            name = tag.get('name')
+            names = tag.get('name').split(',')
             description = tag.get('description')
-            if not Tag.objects.filter(name__iexact=name).exists() and name.strip():
-                new_tag = self.model.objects.create(name=name, description=description, created_by=request.user)
-                return JsonResponse(data={'tag': new_tag.name, 'success': True}, status=200)
-            else:
-                return JsonResponse(data={'success': False}, status=200)
+
+            if description:
+                description = description.strip()
+
+            for name in names:
+                if not Tag.objects.filter(name__iexact=name).exists() and name.strip():
+                    name = name.strip()
+                    new_tag = self.model.objects.create(name=name, description=description, created_by=request.user)
+                    return JsonResponse(data={'tag': new_tag.name, 'success': True}, status=200)
+                else:
+                    return JsonResponse(data={'success': False}, status=200)
             
         return HttpResponse(status=400)
 
@@ -198,7 +207,7 @@ class EventDetailView(DetailView):
         return context
 
     def get_object(self):
-        object = Event.objects.filter(slug=self.kwargs.get('slug'))[0]
+        object = get_object_or_404(self.model, slug=self.kwargs.get('slug'))
         object.views += 1
         object.save()
         return object
@@ -226,6 +235,12 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
         return render(request, self.template_name, self.get_context_data())
 
     def post(self, request, *args, **kwargs):
+        is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+
+        if is_ajax:
+            pass
+        else:
+            return JsonResponse(data={'success': False}, status=200)
 
         try:
             event = self.get_object()
@@ -245,7 +260,7 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
                 selected_tags = text_data.get('selected_tags')
                 date = text_data.get('date').split('-')
                 time = text_data.get('time').split(':')
-                date_time = datetime.datetime(year=int(date[0]), month=int(date[1]), day=int(date[2]), hour=int(time[0]), minute=int(time[1]))
+                date_time = datetime.datetime(year=int(date[0]), month=int(date[1]), day=int(date[2]), hour=int(time[0]), minute=int(time[1]), tzinfo=ZoneInfo(settings.TIME_ZONE))
                 imgs_received_ids = text_data.get('imgs_received_ids')
                 changed = text_data.get('changed')
                 imgs_sent_ids = [ img['id'] for img in self.get_sub_images() ]
@@ -258,7 +273,6 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
                             case '1':
                                 event.sub_image1, event.sub_image1_description = None, None
                             case '2':
-                                print('YEah')
                                 event.sub_image2, event.sub_image2_description = None, None
                             case '3':
                                 event.sub_image3, event.sub_image3_description = None, None
@@ -280,14 +294,21 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
                 # add new tags
                 if selected_tags:
                     for tag_name in selected_tags:
-                        tag = Tag.objects.filter(name=tag_name).first()
-                        if tag not in event.tags.all():
-                            event.tags.add(tag)
+                        try:
+                            tag = Tag.objects.get(name=tag_name.capitalize())
+                            if tag not in event.tags.all():
+                                event.tags.add(tag)
+                        except Tag.DoesNotExist:
+                            pass
+
+                # remove removed tags
+                for tag in event.tags.all():
+                    if tag.name.lower() not in [ tag_name.lower() for tag_name in selected_tags ]:
+                        event.tags.remove(tag)
                 
                 # set new date if changed
-                new_date = timezone.make_aware(date_time)
-                if event.date != new_date:
-                    event.date = new_date
+                if event.date != date_time:
+                    event.date = date_time
 
                 if files:
                     # Implement new changes made to the images sent with the GET request
@@ -348,7 +369,7 @@ class EventUpdateView(LoginRequiredMixin, UserPassesTestMixin, View):
         context = {}
         object = self.get_object()
         context['event'] = object
-        other_imgs = []
+        all_tags = []
 
         for tag in object.tags.all():
             all_tags = Tag.objects.all().exclude(id=tag.id)
@@ -402,7 +423,8 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
 
     def get_object(self):
         slug = self.kwargs.get('slug', '')
-        return self.model.objects.filter(slug=slug).first()
+        return get_object_or_404(self.model, slug=slug)
+
 
 
 

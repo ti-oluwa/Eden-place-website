@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="header_link">
-                    <a>Academics</a>
+                    <a>Discover</a>
                     <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
                     <div class="dropdown">
                         <div class="dropdown_items">
@@ -79,9 +79,9 @@
                     <div class="round"></div>
                     <div class="round"></div>
                     <div class="nav_collapse">
-                        <a href="#"></a><div class="nav_collapse_items">Home</div></a>
-                        <a href="#"></a><div class="nav_collapse_items">About</div></a>
-                        <a href="#"></a><div class="nav_collapse_items">Blog</div></a>
+                        <a href="{% url 'home' %}" class="nav_collapse_items">Home</a>
+                        <a href="{% url 'about' %}" class="nav_collapse_items">About</a>
+                        <a href="{% url 'events' %}" class="nav_collapse_items">Events</a>
                     </div>  
                 </div>
             </div>
@@ -140,12 +140,16 @@
             <div class="drop">
                 <div class="drop_item"><a href="{% url 'enroll' %}">Enrollment</a></div>
                 <div class="drop_item"><a href="{% url 'faqs' %}">FAQ's</a></div>
-                <div class="drop_item"><a href="{% url 'contact' %}">Contact us</a></div>
+                {% if not request.user.is_authenticated %}
+                    <div class="drop_item"><a href="{% url 'contact' %}">Contact us</a></div>
+                {% else %}
+                    <div class="drop_item"><a href="">Dashboard</a></div>
+                {% endif %}
             </div>    
         </div>
         <div class="menu_items">
             <div  id="drop_toggle2">
-                <p>Academics</p>  
+                <p>Discover</p>  
                 <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
             </div>
             <div class="drop">
@@ -161,6 +165,11 @@
         <div class="menu_items">
             <a href="{% url 'contact' %}">Contact us</a>
         </div>
+        {% if request.user.is_admin or request.user.is_superuser %}
+            <div class="menu_items">
+                <a href="{% url 'publish' %}">Publish</a>
+            </div>
+        {% endif %}
     </div>
 
     {% block content %}
@@ -248,15 +257,15 @@
 
     //sets height of main menu on resize
     window.addEventListener('resize', () => {
-        document.querySelector('.main_menu').style.height = (window.innerHeight - 80)+ 'px'
+        document.querySelector('.main_menu').style.height = (window.innerHeight - 90)+ 'px'
     });
 
     window.addEventListener('load', () => {
         // sets the height of the main menu
-        document.querySelector('.main_menu').style.height = (window.innerHeight - 80)+ 'px'
-        document.getElementById('nav_cb').onclick = () => {
+        document.querySelector('.main_menu').style.height = (window.innerHeight - 90)+ 'px'
+        document.getElementById('nav_cb').addEventListener('click', () => {
             document.getElementsByClassName('nav_collapse')[0].classList.toggle('show');
-        };
+        });
 
         // close nav_collapse on hover of other header links
         document.querySelectorAll('.header_link')[2] && document.querySelectorAll('.header_link')[3].addEventListener('pointerover', () => {
@@ -300,7 +309,7 @@
         var isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
         var isClickInsideElement1 = ignoreClickOnMeElement1.contains(event.target);
         if (!isClickInsideElement && !isClickInsideElement1) {
-            document.getElementsByClassName('nav_collapse')[0].classList.toggle('show');
+            document.getElementsByClassName('nav_collapse')[0].classList.remove('show');
         };
         // closes the main menu when the screen width > 828px
         if(window.innerWidth > 860){

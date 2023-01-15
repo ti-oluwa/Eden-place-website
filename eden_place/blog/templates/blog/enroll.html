@@ -539,6 +539,7 @@
             indicator.querySelectorAll('p').forEach((dot, index) => {
                 dot.addEventListener('click', (e) => {
                     let slide = indicator.parentNode.querySelector('.showcase_img').querySelectorAll('.img')[index];
+                    let showcase_img = indicator.parentNode.querySelector('.showcase_img');
                     slide.scrollIntoView(
                         {
                             behavior: 'smooth',
@@ -546,6 +547,10 @@
                             inline: 'start',
                         }
                     );
+
+                    if(showcase_img.id != ""){
+                        clearInterval(parseInt(showcase_img.id));
+                    }   
                 });
             });
         });

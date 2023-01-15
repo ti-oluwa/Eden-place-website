@@ -1,6 +1,7 @@
 from django.db.models.signals import post_migrate, post_save
 from django.dispatch import receiver
-from .models import Faq
+from .models import Faq, Event, Tag
+from django.utils import timezone
 
 
 FAQS= [
@@ -53,3 +54,27 @@ def add_default_faqs(**kwargs):
         if not Faq.objects.filter(question=faq.get('question')).exists():
             new_faq = Faq.objects.create(question=faq.get('question'), answer=faq.get('answer'))
             new_faq.save()
+
+
+@receiver(post_save, sender=Event)
+def add_default_tags(sender, instance, created, **kwargs):
+    if instance.date > timezone.now():
+        if Tag.objects.filter(name__iexact="upcoming").exists():
+            tag = Tag.objects.filter(name__iexact="upcoming").first()
+            if tag not in instance.tags.all():
+                instance.tags.add(tag)
+            
+        else:
+            tag =Tag.objects.create(name="upcoming", description="All future events")
+            instance.tags.add(tag)
+
+    else:
+        if Tag.objects.filter(name__iexact="past").exists():
+            tag = Tag.objects.filter(name__iexact="past").first()
+            if tag not in instance.tags.all():
+                instance.tags.add(tag)
+
+        else:
+            tag =Tag.objects.create(name="past", description="All past events")
+        instance.tags.add(tag)
+    

@@ -177,6 +177,7 @@ header{
     opacity: 1;
 }
 
+
 .hide{
     transform: translateY(-80px) !important;
     opacity: 0 !important;
@@ -202,7 +203,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: clamp(5px, 2vw, 10px);
     font-size: clamp(18px, 4vw, 24px);
     line-height: 20px;
     font-family: 'Monarda' !important;
@@ -431,7 +432,7 @@ header{
     justify-content: center;
     height: auto;
     width: auto;
-    gap: 0 20px;
+    gap: 0 clamp(10px, 2vw, 20px);
     cursor: pointer;
 }
 
