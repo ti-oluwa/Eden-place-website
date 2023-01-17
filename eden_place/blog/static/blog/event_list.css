@@ -176,6 +176,8 @@ button:disabled{
     margin: clamp(10px, 4vw, 20px) 0;
     line-height: 1.6;
     text-align: center;
+    text-shadow: 1.5px 2px 0px var(--link-hover-color);
+
 }
 
 .main_section p{

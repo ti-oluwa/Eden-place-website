@@ -298,6 +298,8 @@ button:disabled{
     color: var(--text-pop-color);
     margin: clamp(20px, 4vw, 40px) 0;
     text-align: center;
+    text-shadow: 1.5px 2px 0px var(--link-hover-color);
+
 }
 
 .showcase_text{

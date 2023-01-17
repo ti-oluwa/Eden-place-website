@@ -8,6 +8,7 @@ urlpatterns = [
     path('about/', TemplateView.as_view(template_name='blog/about.html'), name='about'),
     path('contact/', TemplateView.as_view(template_name='blog/contact.html'), name='contact'),
     path('faqs/', FaqView.as_view(), name='faqs'),
+    path('policies/', TemplateView.as_view(template_name='blog/policies.html'), name='policies'),
     path('events/', EventsListView.as_view(), name='events'),
     path('events/publish/', EventCreateView.as_view(), name='publish'),
     path('all-events/', TagEventListView.as_view(), name="tag_events"),

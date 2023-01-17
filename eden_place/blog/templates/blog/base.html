@@ -56,8 +56,8 @@
                     <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
                     <div class="dropdown">
                         <div class="dropdown_items">
-                            <a href="#"><img src="{% static 'images/enroll.webp' %}" alt="enroll"></a>
-                            <a href="">School Policies</a>
+                            <a href="{% url 'policies' %}"><img src="{% static 'images/enroll.webp' %}" alt="enroll"></a>
+                            <a href="{% url 'policies' %}">School Policies</a>
                         </div>
                         <div class="dropdown_items">
                             <a href="#"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="dropdown_items">
                             <a href="#"><img src="{% static 'images/never_stop_learning.webp' %}" alt="pupils"></a>
-                            <a href="">Calendar</a>
+                            <a href="">Open events</a>
                         </div>
                     </div>
                 </div>
@@ -154,7 +154,7 @@
                 <img src="{% static 'images/dropdown.svg' %}" style="width:12px; height:12px;"  alt="" class="dropdown_icon">
             </div>
             <div class="drop">
-                <div class="drop_item"><a href="">School Policies</a></div>
+                <div class="drop_item"><a href="{% url 'policies' %}">School Policies</a></div>
                 <div class="drop_item"><a href="">Jobs and Hiring</a></div>
                 <div class="drop_item"><a href="">Open events</a></div>
                 <div class="drop_item"><a href="">Newsroom</a></div>
@@ -188,7 +188,7 @@
                         <li><a href="{% url 'about' %}">About</a></li>
                         <li><a href="{% url 'events' %}">Events</a></li>
                         <li><a href="{% url 'faqs' %}">FAQs</a></li>
-                        <li><a href="">Policies</a></li>
+                        <li><a href="{% url 'policies' %}">Policies</a></li>
                     </ul>
                     <div class="contact_details">
                         <p class="phone">

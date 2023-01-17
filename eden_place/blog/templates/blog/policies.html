@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'blog/policies.css' %}">
+{% endblock styles %}
+
+{% block title %}
+    <title>School Policies . Eden Place</title>
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container">
+        <section class="main_section">
+            <h1>School Policy</h1>
+            <p>
+                This are some of the school rules and regulations. This contain the school's policies.
+                You can check them out.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Itaque porro, possimus voluptatum aut dignissimos eveniet! Obcaecati ipsa,
+                 iusto, in suscipit inventore eos illum quia est reprehenderit aperiam repellat ipsum nihil!
+            </p>
+            <p>
+                This are some of the school rules and regulations. This contain the school's policies.
+                You can check them out.
+            </p>
+
+            <a href="" class="download_btn" style="background-color: var(--text-color-sec);">
+                Download Policy
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+        </section>
+    </div>
+{% endblock content %}
