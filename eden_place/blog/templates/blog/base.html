@@ -139,6 +139,7 @@
             </div>
             <div class="drop">
                 <div class="drop_item"><a href="{% url 'enroll' %}">Enrollment</a></div>
+                <div class="drop_item"><a href="{% url 'enroll' %}">Fees</a></div>
                 <div class="drop_item"><a href="{% url 'faqs' %}">FAQ's</a></div>
                 {% if not request.user.is_authenticated %}
                     <div class="drop_item"><a href="{% url 'contact' %}">Contact us</a></div>
@@ -155,7 +156,9 @@
             <div class="drop">
                 <div class="drop_item"><a href="">School Policies</a></div>
                 <div class="drop_item"><a href="">Jobs and Hiring</a></div>
-                <div class="drop_item"><a href="">Calendar</a></div>
+                <div class="drop_item"><a href="">Open events</a></div>
+                <div class="drop_item"><a href="">Newsroom</a></div>
+                <div class="drop_item"><a href="">Leadership</a></div>
             </div>     
         </div>
         
@@ -254,6 +257,50 @@
         return true;
     }
 
+    let main_menu = document.querySelector('.main_menu');
+    let header = document.querySelector('header');
+
+    function setHeaderHeight(){
+        setTimeout(() => {
+            main_menu.style.top = header.offsetHeight + 'px';
+            main_menu.style.height = window.innerHeight - header.clientHeight + 'px';
+        }, 100);
+    }
+
+    document.addEventListener('load', () => {
+        // sets the height of the main menu to the height of the header
+        setHeaderHeight();
+    });
+
+
+    // collapses the header on scroll
+    window.addEventListener('scroll', () => {
+        let school_logo = document.querySelector('.header_logo a img');
+        let menu_p = document.querySelector('.hamburger_container p');
+        let header_dropdowns = document.querySelectorAll('.dropdown');
+
+        if (window.scrollY > 0){
+            header.classList.add('header_collapse');
+            school_logo.classList.add('shrink');
+            menu_p.classList.add('flip_inwards_right');
+            menu_p.classList.remove('flip_outwards_right');
+            setHeaderHeight();
+        } else {
+            header.classList.remove('header_collapse');
+            school_logo.classList.remove('shrink');
+            menu_p.classList.add('flip_outwards_right');
+            menu_p.classList.remove('flip_inwards_right');
+            setHeaderHeight();
+        }
+
+        // collapses the dropdowns on scroll
+        header_dropdowns.forEach((dropdown) => {
+            dropdown.style.top = header.offsetHeight * 0.7 + 'px';
+        });
+    
+    });
+
+    
 
     //sets height of main menu on resize
     window.addEventListener('resize', () => {

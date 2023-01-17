@@ -580,7 +580,7 @@ button:disabled{
     cursor: pointer;
 }
 
-.move_backwards:hover, .move_forwards:hover{
+.move_backwards:active, .move_forwards:active{
     background: rgba(31, 31, 31, 0.15);
     transition: background 0.1s ease-in;
 }
@@ -592,7 +592,7 @@ button:disabled{
     align-items: center;
     bottom: 0;
     right: 0;
-    z-index: 1;
+    z-index: 2;
     background: #ddd;
     padding: 2px;
     gap: 2px;
@@ -732,6 +732,12 @@ button:disabled{
 }
 
 
+@media(hover:hover){
+    .move_backwards:hover, .move_forwards:hover{
+        background: rgba(31, 31, 31, 0.15);
+        transition: background 0.1s ease-in;
+    }
+}
 
 @media screen and (max-width: 828px){
     

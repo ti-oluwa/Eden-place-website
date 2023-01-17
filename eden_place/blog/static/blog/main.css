@@ -173,7 +173,7 @@ header{
     box-shadow: var(--header-shadow-color);
     position: fixed;
     top: 0;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s ease;
     opacity: 1;
 }
 
@@ -208,7 +208,11 @@ header{
     line-height: 20px;
     font-family: 'Monarda' !important;
     color: #5c28a2;
-    font-weight: 600;
+    font-weight: 600
+}
+
+.header_logo a img{
+    transition: all 0.2s ease-in !important;
 }
 
 .header_links{
@@ -243,6 +247,89 @@ header{
 
 .show{
     display: block !important;
+}
+
+.show_flex{
+    display: flex !important;
+}
+
+.shrink{
+    transform: scale(0.7);
+}
+
+.header_collapse{
+    height: 60px !important;
+}
+
+.flip_inwards_right{
+    transform-origin: 100% 100%;
+    animation: flip_in_r 0.2s ease-in forwards;
+}
+
+.flip_inwards_left{
+    transform-origin: 0% 0%;
+    animation: flip_in_l 0.2s ease-i forwards;
+}
+
+@keyframes flip_in_r{
+    0%{
+        opacity: 1;
+        transform: rotateY(0deg);
+    }
+    100%{
+        opacity: 0;
+        transform: rotateY(90deg);
+        visibility: hidden;
+    }
+}
+
+@keyframes flip_in_l{
+    0%{
+        opacity: 1;
+        transform: rotateY(0deg);
+    }
+    100%{
+        opacity: 0;
+        transform: rotateY(-90deg);
+        visibility: hidden;
+    }
+    
+}
+
+.flip_outwards_left {
+    transform-origin: 0% 0%;
+    animation: flip_out_l 0.2s ease-in-out forwards;
+}
+
+.flip_outwards_right {
+    transform-origin: 100% 100%;
+    animation: flip_out_r 0.2s ease-in-out forwards;
+}
+
+@keyframes flip_out_l{
+    0%{
+        transform: rotateY(-90deg);
+        visibility: hidden;
+        opacity: 0;
+    }
+    100%{
+        transform: rotateY(0deg);
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+@keyframes flip_out_r{
+    0%{
+        transform: rotateY(90deg);
+        visibility: hidden;
+        opacity: 0;
+    }
+    100%{
+        transform: rotateY(0deg);
+        visibility: visible;
+        opacity: 1;
+    }
 }
 
 .nav_collapse{
@@ -482,13 +569,12 @@ header{
 
 .main_menu{
     position: fixed;
-    top: 100px;
+    /* top: 100px; */
     width: 100%;
     transform: translateY(-100%);
     visibility: hidden;
     z-index: 10;
-    /* opacity: 0; */
-    /* height: 80vh; */
+    max-height: 100vh;
     overflow-y: scroll !important;
     background-color: #fff;
     display: flex;
@@ -556,7 +642,7 @@ header{
     background-color: var(--link-hover-color) !important;
 }
 .open_drop{
-   height: 180px !important;
+   min-height: 250px !important;
    padding: 20px 0 !important;
    visibility: visible !important;
    opacity: 1 !important;
@@ -650,7 +736,7 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    padding-bottom: 20px;
  }
  
 #footer_container{
