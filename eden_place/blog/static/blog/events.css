@@ -218,7 +218,7 @@ button:disabled{
     width: 90%;
     height: 1px;
     background-color: var(--text-color);
-    margin: clamp(40px, 2vw, 60px) 0;
+    margin-block: clamp(30px, 4vw, 60px);
 }
 
 .upcoming{

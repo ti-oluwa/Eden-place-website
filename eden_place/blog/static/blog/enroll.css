@@ -171,28 +171,37 @@ button:disabled{
 
 .showcase_main{
     width: 100%;
-    height: 500px;
-    border-radius: 4px;
+    height: 400px !important;
+    margin-top: 20px;
+    margin-bottom: clamp(30px, 4vw, 60px);
     position: relative;
 }
 
-.showcase_main img{
+.showcase_main .img_wrapper{
+    display: inline-block;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.showcase_main .img_wrapper img{
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: center;
     border-radius: inherit;
-    border: 2px solid var(--link-hover-color);
-    animation: 1s ease-in-out;
+    animation: 2.5s ease;
     animation-name: zoom_in;
     animation-delay: none;
     animation-fill-mode: forwards;
-    transform: scale(1.02);
+    transform: scale(1.1);
     filter: brightness(0.5) contrast(0.8);
 }
 
 @keyframes zoom_in{
     0%{
         filter: brightness(0.5) contrast(0.8);
-        transform: scale(1.02);
+        transform: scale(1.1);
     }
     100%{
         filter: brightness(1) contrast(0.8);
@@ -274,15 +283,20 @@ button:disabled{
     background-color: var(--button-bg-color-hover-secondary);
 }
 
-.showcase h1{
+.showcase_main h1{
     font-family: 'Monarda';
-    font-size: clamp(48px, 4vw, 90px);
+    font-size: clamp(44px, 6vw, 100px);
     font-weight: 500;
-    color: var(--text-pop-color);
-    margin: clamp(20px, 4vw, 40px) 0;
+    color:var(--text-pop-color);
+    line-height: 1.2;
+    width: 100%;
+    /* margin: clamp(20px, 4vw, 40px) 0; */
     text-align: center;
     text-shadow: 1.5px 2px 0px var(--link-hover-color);
-
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 45%);
 }
 
 .showcase_text{
@@ -344,7 +358,7 @@ button:disabled{
     width: 90%;
     height: 1px;
     background-color: var(--text-color);
-    margin: 60px 0;
+    margin-block: clamp(30px, 4vw, 60px);
 }
 
 .quote_section{
@@ -741,7 +755,7 @@ button:disabled{
     }
 }
 
-@media screen and (max-width: 828px){
+@media screen and (max-width: 480px){
     
 }
 

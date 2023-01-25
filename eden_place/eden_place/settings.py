@@ -159,3 +159,7 @@ LOGIN_URL = '/signin'
 
 LOGIN_REDIRECT_URL = 'home'
 
+if ALLOWED_HOSTS:
+    WEBSITE_DOMAIN = ALLOWED_HOSTS[0] or 'http://127.0.0.1:8000'
+else:
+   WEBSITE_DOMAIN = 'http://127.0.0.1:8000' 

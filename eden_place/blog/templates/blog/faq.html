@@ -24,7 +24,7 @@
             <div class="faq">
                 <hr>
                 <h3>
-                    <img src="../../static/images/down.svg" alt="" style="width: clamp(16px, 2vw, 20px); height: clamp(16px, 2vw, 20px);">
+                    <img src="{% static 'images/down.svg' %}" alt="" style="width: clamp(16px, 2vw, 20px); height: clamp(16px, 2vw, 20px);">
                     {{ faq.question }}
                 </h3>
                 <div class="answer">
@@ -39,10 +39,8 @@
 {% endblock content %}
 
 {% block script %}
-    <script type="text/javascript">
+    <script>
         var faq = document.querySelectorAll('.faq');
-        // var answer = document.querySelectorAll('.answer');
-        // var img = document.querySelectorAll('img');
 
         faq.forEach((item, index) => {
             item.querySelector('h3').addEventListener('click', () => {

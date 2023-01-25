@@ -439,9 +439,10 @@ header{
 
 .dropdown{
     z-index: 99;
-    position: absolute;
+    position: fixed;
     top: 62px;
-    transform: translateX(-300px) !important;
+    left: 50%;
+    transform: translateX(-50%) !important;
     padding: 20px;
     display: none;
     gap: 0 50px;
@@ -894,7 +895,7 @@ footer .additional{
     gap: 20px;
 }
 
-.additional p{
+.additional p, .additional p a{
     font-size: clamp(12px, 2vw, 14px);
     font-weight: 500;
     color: var(--input-text-color);
@@ -924,9 +925,11 @@ footer .additional{
         display: flex;
     }
 
-    .dropdown{
-        transform: translateX(-200px) !important;
+    .dropdown_items img{
+        width: 130px;
+        height: 130px;
     }
+
 }
 
 @media screen and (max-width: 860px){

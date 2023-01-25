@@ -18,13 +18,13 @@
               <p>Page {{ page_obj.number }}</p>
             {% endif %}
             <div class="share_tab">
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.get_full_path }}" style="background-color: #3177ea;" target="__blank">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ website_domain }}{{ request.get_full_path }}" style="background-color: #3177ea;" target="__blank">
                     <img src="../../static/images/facebook.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
                 </a>
-                <a href="https://twitter.com/intent/tweet?url={{ request.get_full_path }}" style="background-color: #fff;" target="__blank">
+                <a href="https://twitter.com/intent/tweet?url={{ website_domain }}{{ request.get_full_path }}" style="background-color: #fff;" target="__blank">
                     <img src="../../static/images/twitter.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
                 </a>
-                <a href="https://www.linkedin.com/shareArticle?url={{ request.get_full_path }}" style="background-color: #2d79b5;" target="__blank">
+                <a href="https://www.linkedin.com/shareArticle?url={{ website_domain }}{{ request.get_full_path }}" style="background-color: #2d79b5;" target="__blank">
                     <img src="../../static/images/linkedin.svg" alt="" style="width: clamp(10px, 2vw, 20px); height: clamp(10px, 2vw, 20px)">
                 </a>
             </div>

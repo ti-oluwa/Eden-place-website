@@ -41,6 +41,10 @@
                             <a href="{% url 'enroll' %}">Enrollment</a>
                         </div>
                         <div class="dropdown_items">
+                            <a href="{% url 'faqs' %}"><img src="{% static 'images/never_stop_learning.webp' %}" alt="curriculum"></a>
+                            <a href="{% url 'faqs' %}">Fees</a>
+                        </div>
+                        <div class="dropdown_items">
                             <a href="{% url 'faqs' %}"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
                             <a href="{% url 'faqs' %}">FAQs</a>
                         </div>
@@ -60,12 +64,20 @@
                             <a href="{% url 'policies' %}">School Policies</a>
                         </div>
                         <div class="dropdown_items">
-                            <a href="#"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
-                            <a href="">Jobs and Hiring</a>
+                            <a href="{% url 'jobs' %}"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
+                            <a href="{% url 'jobs' %}">Jobs and Hiring</a>
                         </div>
                         <div class="dropdown_items">
-                            <a href="#"><img src="{% static 'images/never_stop_learning.webp' %}" alt="pupils"></a>
-                            <a href="">Open events</a>
+                            <a href="{% url 'tag_events' %}?tag=Open%20Day"><img src="{% static 'images/never_stop_learning.webp' %}" alt="pupils"></a>
+                            <a href="{% url 'tag_events' %}?tag=Open%20Day">Open events</a>
+                        </div>
+                        <div class="dropdown_items">
+                            <a href="{% url 'policies' %}"><img src="{% static 'images/enroll.webp' %}" alt="enroll"></a>
+                            <a href="{% url 'policies' %}">Newsroom</a>
+                        </div>
+                        <div class="dropdown_items">
+                            <a href="#"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
+                            <a href="">Leadership</a>
                         </div>
                     </div>
                 </div>
@@ -155,8 +167,8 @@
             </div>
             <div class="drop">
                 <div class="drop_item"><a href="{% url 'policies' %}">School Policies</a></div>
-                <div class="drop_item"><a href="">Jobs and Hiring</a></div>
-                <div class="drop_item"><a href="">Open events</a></div>
+                <div class="drop_item"><a href="{% url 'jobs' %}">Jobs and Hiring</a></div>
+                <div class="drop_item"><a href="{% url 'tag_events' %}?tag=Open%20Day">Open events</a></div>
                 <div class="drop_item"><a href="">Newsroom</a></div>
                 <div class="drop_item"><a href="">Leadership</a></div>
             </div>     
@@ -216,7 +228,7 @@
                 <a href="{% url 'contact' %}">Contact us</a>
                 <a href="">Site map</a>
             </div>
-            <p>Copyright &copy; 2022, ti_oluwa</p>
+            <p>Copyright &copy; 2022, <a href="https://bit.ly/dev_tioluwa">ti_oluwa</a></p>
         </div>
     </footer>
 </body>
@@ -279,7 +291,7 @@
         let menu_p = document.querySelector('.hamburger_container p');
         let header_dropdowns = document.querySelectorAll('.dropdown');
 
-        if (window.scrollY > 0){
+        if (window.scrollY > 10){
             header.classList.add('header_collapse');
             school_logo.classList.add('shrink');
             menu_p.classList.add('flip_inwards_right');
@@ -295,7 +307,9 @@
 
         // collapses the dropdowns on scroll
         header_dropdowns.forEach((dropdown) => {
-            dropdown.style.top = header.offsetHeight * 0.7 + 'px';
+            setTimeout(()=>{
+                dropdown.style.top = header.offsetHeight * 0.7 + 'px';
+            }, 100)
         });
     
     });

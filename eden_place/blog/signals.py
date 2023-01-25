@@ -47,6 +47,22 @@ FAQS= [
     },
 ]
 
+DEFAULT_TAGS = [
+    {
+        'name': 'Past',
+        'description': "All past events"
+    },
+    {
+        'name': 'Upcoming',
+        'description': "All future events"
+    },
+    {
+        'name': 'Open Day',
+        'description': "All open day events"
+    },
+    
+]
+
 
 @receiver(post_migrate)
 def add_default_faqs(**kwargs):
@@ -56,9 +72,22 @@ def add_default_faqs(**kwargs):
             new_faq.save()
 
 
+@receiver(post_migrate)
+def add_default_tags(**kwargs):
+    for tag in DEFAULT_TAGS:
+        if not Tag.objects.filter(name=tag.get('name').capitalize()).exists():
+            new_tag = Tag.objects.create(name=tag.get('name').capitalize(), description=tag.get('description'))
+            new_tag.save()
+
+
 @receiver(post_save, sender=Event)
-def add_default_tags(sender, instance, created, **kwargs):
+def auto_add_tags(sender, instance, created, **kwargs):
     if instance.date > timezone.now():
+        if Tag.objects.filter(name__iexact="past").exists():
+            tag = Tag.objects.filter(name__iexact="past").first()
+            if tag in instance.tags.all():
+                instance.tags.remove(tag)
+
         if Tag.objects.filter(name__iexact="upcoming").exists():
             tag = Tag.objects.filter(name__iexact="upcoming").first()
             if tag not in instance.tags.all():
@@ -69,6 +98,11 @@ def add_default_tags(sender, instance, created, **kwargs):
             instance.tags.add(tag)
 
     else:
+        if Tag.objects.filter(name__iexact="upcoming").exists():
+            tag = Tag.objects.filter(name__iexact="upcoming").first()
+            if tag in instance.tags.all():
+                instance.tags.remove(tag)
+
         if Tag.objects.filter(name__iexact="past").exists():
             tag = Tag.objects.filter(name__iexact="past").first()
             if tag not in instance.tags.all():
@@ -76,5 +110,5 @@ def add_default_tags(sender, instance, created, **kwargs):
 
         else:
             tag =Tag.objects.create(name="past", description="All past events")
-        instance.tags.add(tag)
+            instance.tags.add(tag)
     

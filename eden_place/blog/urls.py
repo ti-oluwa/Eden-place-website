@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import HomeView, EventCreateView, EventDeleteView, TagEventListView, EventDetailView, EventUpdateView, EventsListView, TagCreateView, FaqView
+from .views import (HomeView, EventCreateView, EventDeleteView, 
+                                TagEventListView, EventDetailView, EventUpdateView, 
+                                EventsListView, TagCreateView, FaqView, JobListView)
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -9,6 +11,7 @@ urlpatterns = [
     path('contact/', TemplateView.as_view(template_name='blog/contact.html'), name='contact'),
     path('faqs/', FaqView.as_view(), name='faqs'),
     path('policies/', TemplateView.as_view(template_name='blog/policies.html'), name='policies'),
+    path('jobs/', JobListView.as_view(), name='jobs'),
     path('events/', EventsListView.as_view(), name='events'),
     path('events/publish/', EventCreateView.as_view(), name='publish'),
     path('all-events/', TagEventListView.as_view(), name="tag_events"),

@@ -6,6 +6,27 @@ from django.urls import reverse
 from django.template.defaultfilters import slugify 
 
 
+class Job(models.Model):
+    title = models.CharField(max_length=50, null=True, verbose_name="Job title")
+    description = models.TextField(max_length=700, null=True, verbose_name="Job description")
+    application_url = models.URLField(verbose_name="Link to application page", help_text="Enter the link to the page where the applicants can apply for the job post.")
+    application_starts = models.DateField(default=timezone.now, verbose_name="Application starting date")
+    application_ends = models.DateField(verbose_name="Application ending date") 
+
+    class Meta:
+        ordering = ['-application_starts']
+
+    def __str__(self):
+        return self.title
+
+    def save(self, *args, **kwargs): 
+        if self.application_ends > self.application_starts:
+            self.is_open = True
+        else:
+            self.is_open = False
+        return super().save(*args, **kwargs)
+
+
 class Tag(models.Model):
     name= models.CharField(max_length=100)
     description = models.TextField(max_length=200, blank=True, null=True)
@@ -91,7 +112,7 @@ class Event(models.Model):
 
 
 class Faq(models.Model):
-    question = models.TextField(max_length=200)
+    question = models.TextField(max_length=150)
     answer = models.TextField(max_length=1024)
     date_added = models.DateTimeField(default=timezone.now)
 

@@ -1,0 +1,72 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Jobs and Hiring . Eden Place</title>
+{% endblock title %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'blog/jobs.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="container">
+        <div class="showcase">
+            <div class="img_wrapper">
+                <img src="{% static 'images/landing2.webp' %}" alt="showcase image">
+            </div>
+            
+            <h1>Jobs and Hiring</h1>
+        </div>
+
+        <div class="page_head">
+            <p>
+                Below, You will find a list of job openings at Eden Place.
+                Please read carefully the job requirements before applying.
+                 Also prepare a copy of your resume for upload beforehand.
+            </p>
+        </div>
+
+        <section class="jobs_section">
+            {% if jobs %}
+                {% for job in jobs %}
+                <div class="job">
+                    <hr>
+                    <div class="job_name">
+                        <div class="brief">
+                            <h3>{{ job.title }}</h3>
+                            <a href="{{ job.application_url }}" target="__blank">apply</a>
+                        </div>
+                        <img src="{% static 'images/down.svg' %}" alt="" style="width: clamp(16px, 2vw, 20px); height: clamp(16px, 2vw, 20px);">
+                    </div>
+                    <div class="job_description">
+                        <p>
+                            {{ job.description|linebreaks }}
+                            <b>Application starts {{ job.application_starts }} and ends {{ job.application_ends }}.</b>
+                        </p>
+                    </div>
+                    <hr>
+                </div>
+                {% endfor %}
+            {% else %}
+                <h3 class="no_job">No job opening for now</h3>
+            {% endif %}
+        </section>
+    </div>
+{% endblock content %}
+
+{% block script %}
+<script>
+    var jobs = document.querySelectorAll('.job');
+    if(jobs.length > 0){
+        jobs.forEach((item, index) => {
+            item.querySelector('.job_name').addEventListener('click', (e) => {
+                if(!item.querySelector('.brief a').contains(e.target)){
+                    item.querySelector('.job_description').classList.toggle('open');
+                    item.querySelector('.job_name img').classList.toggle('flip');
+                };
+            });
+        });
+    }
+</script>
+{% endblock script %}

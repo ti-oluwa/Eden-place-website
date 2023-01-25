@@ -13,7 +13,10 @@
     <div class="container">
         <div class="showcase">
             <div class="showcase_main">
-                <img src="{% static 'images/landing2.webp' %}" alt="" style="width: 100%; height: 100%;">
+                <div class="img_wrapper">
+                    <img src="{% static 'images/landing2.webp' %}" alt="" style="width: 100%; height: 100%;">
+                </div>
+
                 <div class="main_card">
                     <div>
                         <h3>Eden Place Schools</h3>
@@ -21,8 +24,10 @@
                     </div>
                     <a href="">View school history</a>
                 </div>
+
+                <h1>About Us</h1>
             </div>
-            <h1>About Us</h1>
+            
             <div class="showcase_text">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam at quod cupiditate tempore quis rem natus porro 
@@ -210,7 +215,7 @@
                 We work in partnership with pupils, parents, child protection agencies and diverse communities to continuously 
                 develop and improve safeguarding within our school. Find out more about the school's core policies.
             </p>
-            <a href="" class="apply_btn">
+            <a href="{% url 'policies' %}" class="apply_btn">
                 View our policies
                 <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
             </a>     
@@ -226,7 +231,7 @@
                 <img class="window_img" src="{% static 'images/enroll.webp' %}" alt="">
                 <div class="window_text">
                     <p>Eden Place is an exciting place to teach and to learn. Find out more about opportunities to join our staff.</p>
-                    <a href="" class="apply_btn" style="background-color: var(--button-bg-color);">
+                    <a href="{% url 'jobs' %}" class="apply_btn" style="background-color: var(--button-bg-color);">
                         Work with us
                         <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
                     </a>     
@@ -330,6 +335,20 @@
             });
         })
 
+        const img_observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                    entry.target.classList.add('zoom_in_img');
+                }
+            });
+        }, {threshold: 0.5});
+
+        showcase_imgs.forEach(showcase_img => {
+            showcase_img.querySelectorAll('.img img').forEach(img => {
+                img_observer.observe(img);
+            });
+        })
+
         
         function to_bool(val){
             if(val == 'true'){
@@ -358,7 +377,7 @@
                             reached_end = false;
                             entry.target.querySelectorAll('.img')[0].id = reached_end
                         }
-                    }, 8000);
+                    }, 6500);
                 }
                 else{
                     clearInterval(entry.target.id)

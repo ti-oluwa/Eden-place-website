@@ -2,11 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import JsonResponse
 from django.views.generic import CreateView, ListView, DetailView, View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.decorators import login_required
-from .models import Event, Tag, Faq
-from users.models import Student, Staff
+from .models import Event, Tag, Faq, Job
 from .forms import EventCreateForm
-from django.http import Http404, HttpResponseForbidden
+from django.http import HttpResponseForbidden
 import json
 from django.utils import timezone
 import datetime
@@ -159,6 +157,7 @@ class EventsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['website_domain'] = settings.WEBSITE_DOMAIN
         context['upcoming_events'] = self.get_queryset()[0].order_by('-date')[:3]
         context['past_events'] = self.get_queryset()[1].order_by('-date')[:8]
         return context
@@ -179,6 +178,7 @@ class TagEventListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['website_domain'] = settings.WEBSITE_DOMAIN
         context['tag'] = self.request.GET.get('tag')
         return context
 
@@ -193,6 +193,7 @@ class EventDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['all_tags'] = Tag.objects.all()
+        context['website_domain'] = settings.WEBSITE_DOMAIN
         object = self.get_object()
         sub_images = [ {'file': object.sub_image1, 'description': object.sub_image1_description}, 
                                 {'file': object.sub_image2, 'description': object.sub_image2_description},
@@ -428,5 +429,12 @@ class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin, View):
         return get_object_or_404(self.model, slug=slug)
 
 
+class JobListView(ListView):
+    '''View that returns the list of available jobs openings if application is still open'''
+    model = Job
+    template_name = 'blog/jobs.html'
+    context_object_name = 'jobs'
 
-
+    def get_queryset(self):
+        qs = super().get_queryset().filter(application_ends__gte=timezone.now().date())
+        return qs

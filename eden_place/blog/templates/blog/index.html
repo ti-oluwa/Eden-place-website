@@ -141,8 +141,44 @@
 <script type="text/javascript">
     window.addEventListener( 'load', () => {
         let showcase_imgs = document.querySelectorAll('.showcase_img');
+        let showcase_text = document.querySelector('.showcase_text');
+        let showcase_h1 = document.querySelector('.showcase_text h1');
+        let showcase_p = document.querySelector('.showcase_text p:last-of-type');
         var img_width = showcase_imgs[0].querySelectorAll('.img')[0].clientWidth;
+        var images = document.querySelectorAll('.img img');
 
+        const showcase_text_observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                    entry.target.classList.add('slide_downwards');
+                }
+            });
+        }, {rootMargin: "10% 10%"});
+
+        showcase_text_observer.observe(showcase_text);
+
+        const text_observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                    entry.target.classList.add('slide_upwards');
+                }
+            });
+        }, {rootMargin: "10% 10%"});
+
+        text_observer.observe(showcase_h1);
+        text_observer.observe(showcase_p);
+
+        const img_observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting){
+                    entry.target.classList.add('zoom_out');
+                }
+            });
+        }, {rootMargin: "10% 10%"});
+
+        images.forEach((img) => {
+            img_observer.observe(img);
+        });
 
         function to_bool(val){
             if(val == 'true'){
@@ -194,7 +230,7 @@
                     entry.target.classList.add('display_section');
                 }
             });
-        });
+        }, {rootMargin: "10% 10%"});
 
         det_imgs.forEach(img => {
             observer.observe(img);
@@ -208,10 +244,10 @@
 
         const recent_observer = new IntersectionObserver((entries)=>{
             entries.forEach(entry => {
-                entry.target.style.animationDelay = delay + 's';
                 if(entry.isIntersecting){
                     entry.target.classList.add('display_recent');
                 }
+                entry.target.style.animationDelay = delay + 's';
                 delay += 0.1;
                 setTimeout(() => {
                     delay = 0.1;
