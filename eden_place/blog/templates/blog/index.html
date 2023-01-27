@@ -9,13 +9,20 @@
     <title>Home . Eden Place</title>
 {% endblock title %}
 
+{% block links_and_scripts %}
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+{% endblock links_and_scripts %}
+
 
 {% block content %}
     <div class="showcase" style="scroll-behavior: smooth;">
         <div class="showcase_text be_container">
             <p>Best in class education</p>
             <h1>Eden Place</h1>
-            <p>At Eden Place, we build world changers and God fearing pupils. Our montessori system helps children learn while keeping things fun.</p>
+            <p>
+                <span class="split_text">At Eden Place, we build world changers and God fearing pupils. Our montessori system helps children learn while keeping things fun.</span>
+            </p>
             <div class="action_btns">
                 <a href="{% url 'enroll' %}" class="btn">Enroll Now</a>
                 <a href="{% url 'about' %}" class="btn">Learn More</a>
@@ -137,15 +144,26 @@
     </div>
 {% endblock content %}
 
-{% block script %}  
-<script type="text/javascript">
+{% block script %} 
+<script>
     window.addEventListener( 'load', () => {
         let showcase_imgs = document.querySelectorAll('.showcase_img');
         let showcase_text = document.querySelector('.showcase_text');
         let showcase_h1 = document.querySelector('.showcase_text h1');
-        let showcase_p = document.querySelector('.showcase_text p:last-of-type');
         var img_width = showcase_imgs[0].querySelectorAll('.img')[0].clientWidth;
         var images = document.querySelectorAll('.img img');
+
+        // text animation
+        let split_text = new SplitType('.split_text');
+        
+        let tween = gsap.from(split_text.lines, {
+            duration: 0.8,
+            y: 100,
+            stagger: 0.1,
+            ease: 'power2.out',
+            delay: 1,
+        });
+        tween.play();
 
         const showcase_text_observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -166,7 +184,6 @@
         }, {rootMargin: "10% 10%"});
 
         text_observer.observe(showcase_h1);
-        text_observer.observe(showcase_p);
 
         const img_observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {

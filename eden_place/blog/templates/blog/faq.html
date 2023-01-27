@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>FAQ'S . Eden Place</title>
+    <title>FAQs . Eden Place</title>
 {% endblock title %}
 
 {% block styles %}
@@ -40,13 +40,27 @@
 
 {% block script %}
     <script>
-        var faq = document.querySelectorAll('.faq');
+        let faqs = document.querySelectorAll('.faq');
+        const faq_observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if(entry.isIntersecting){
+                    entry.target.classList.add('slide_up');
+                }
+            })
+        })
 
-        faq.forEach((item, index) => {
-            item.querySelector('h3').addEventListener('click', () => {
-                item.querySelector('.answer').classList.toggle('open');
-                item.querySelector('img').classList.toggle('flip');
+        var delay = 0;
+        if(faqs.length > 0){
+            faqs.forEach((item, index) => {
+                item.style.animationDelay = `${delay}s`;
+                delay += 0.1;
+                faq_observer.observe(item);
+                item.querySelector('h3').addEventListener('click', () => {
+                    item.querySelector('.answer').classList.toggle('open');
+                    item.querySelector('img').classList.toggle('flip');
+                });
             });
-        });
+        };
+        
     </script>
 {% endblock script %}

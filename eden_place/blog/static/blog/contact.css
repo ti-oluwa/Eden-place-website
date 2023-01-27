@@ -1,33 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Manrope');
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=DM+Sans');
-@import url('https://fonts.googleapis.com/css?family=Cabin');
-@import url('https://fonts.googleapis.com/css?family=Secular+One');
-@import url('https://fonts.googleapis.com/css?family=Anton');
-@import url('https://fonts.googleapis.com/css?family=Cookie');
-@import url('https://fonts.googleapis.com/css?family=Great+Vibes');
-@import url('https://fonts.googleapis.com/css2?family=Vesper+Libre&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Scope+One&family=Vesper+Libre&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Manrope&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css?family=DM+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cabin&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes&display=swap');
 
 
 @font-face {
     font-family: 'Monarda';
-    src: url('monarda-webfont.woff2') format('woff2'),
-         url('monarda-webfont.woff') format('woff');
+    src: url('monarda-webfont.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-
+    display: swap;
 }
-
-@font-face {
-    font-family: 'Billie Sight';
-    src: url('billie-sight.otf') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
 
 
 :root{
@@ -223,6 +207,8 @@ button:disabled{
     justify-content: center;
     align-items: flex-start;
     padding: 0 50px;
+    transform: translateY(50px);
+    opacity: 0;
 }
 
 .section_content h3{
@@ -249,6 +235,8 @@ button:disabled{
     justify-content: center;
     align-items: center;
     position: relative;
+    transform: translateY(50px);
+    opacity: 0;
 }
 
 .section_img img{
@@ -280,6 +268,8 @@ button:disabled{
     justify-content: flex-start;
     align-items: flex-start;
     max-width: 400px;
+    transform: translateY(50px);
+    opacity: 0;
 }
 
 .sub_section h3{
@@ -327,12 +317,25 @@ button:disabled{
 
 .map .card{
     position: absolute;
-    top: 10%;
+    top: 4%;
     right: 5%;
     width: 300px;
     border: 1px solid var(--button-bg-color);
     background-color: #fff;
+    opacity: 0;
+    animation: slide_down 0.8s ease forwards;
 }
+
+@keyframes slide_down {
+    from{
+        top: 4%;
+        opacity: 0;
+    }to{
+        top: 10%;
+        opacity: 1;
+    }
+}
+
 
 .card .card_content{
     padding: 20px 30px;
@@ -376,6 +379,22 @@ button:disabled{
     font-family: 'Manrope';
     font-weight: 600;
     font-size: clamp(12px, 2vw, 14px);
+}
+
+
+
+.slide_up{
+    animation: slide_up 0.5s ease-out forwards;
+}
+
+@keyframes slide_up {
+    from{
+        transform: translateY(50px);
+        opacity: 0;
+    }to{
+        transform: translateY(0px);
+        opacity: 1;
+    }
 }
 
 @media screen and (max-width: 828px){

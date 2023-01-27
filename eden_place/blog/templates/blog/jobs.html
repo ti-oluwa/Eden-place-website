@@ -58,8 +58,21 @@
 {% block script %}
 <script>
     var jobs = document.querySelectorAll('.job');
+    const job_observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if(entry.isIntersecting){
+                entry.target.classList.add('slide_up');
+            }
+        })
+    })
+
+    let delay = 0;
     if(jobs.length > 0){
         jobs.forEach((item, index) => {
+            item.style.animationDelay = `${delay}s`;
+            delay += 0.1;
+            job_observer.observe(item);
+
             item.querySelector('.job_name').addEventListener('click', (e) => {
                 if(!item.querySelector('.brief a').contains(e.target)){
                     item.querySelector('.job_description').classList.toggle('open');

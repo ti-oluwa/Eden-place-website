@@ -7,7 +7,25 @@
     <title>Sign Up | Login</title>
     {% load static %}
 
+    <link rel="icon" type="image/x-icon" href="{% static 'images/edenplace-logo.webp' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/edenplace-logo.webp' %}"/>
+
+    {% comment %} PRE-CONNECTIONS {% endcomment %}
+    <link rel="preconnect" href="{% static 'users/' %}"/>
+    <link rel="preconnect" href="{% static 'images/' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin>
+
+     {% comment %} <!-- PRELOAD FONTS --> {% endcomment %}
+     <link rel="preload" href="https://fonts.googleapis.com/css?family=Manrope" as="font" type="font/woff2" crossorigin>
+     <link rel="preload" href="https://fonts.googleapis.com/css?family=Raleway" as="font" type="font/woff2" crossorigin>
+     <link rel="preload" href="https://fonts.googleapis.com/css?family=DM+Sans" as="font" type="font/woff2" crossorigin>
+
     <link rel="stylesheet" type="text/css" href="{% static '/users//login.css' %}">
+    <script defer src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <main class="container">
@@ -36,8 +54,8 @@
             </form>
         </div>
     </main>
-    <script src="{% static 'users/jquery-3.6.1.min.js' %}"></script>
-    <script type="text/javascript">
+
+    <script>
         function getCookie(name) {
             let cookieValue = null;
             if (document.cookie && document.cookie !== "") {

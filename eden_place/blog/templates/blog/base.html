@@ -6,12 +6,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'blog/main.css' %}">
-    <link rel="icon" type="image/x-icon" href="{% static 'images/edenplace-logo.webp' %}">
-    {% block styles %}
-    {% endblock styles %}
+    {% block meta %}
+    {% endblock meta %}
+
     {% block title %}
     {% endblock title %}
+
+    <link rel="icon" type="image/x-icon" href="{% static 'images/edenplace-logo.webp' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/edenplace-logo.webp' %}"/>
+
+    {% comment %} PRE-CONNECTIONS {% endcomment %}
+    <link rel="preconnect" href="{% static 'blog/' %}"/>
+    <link rel="preconnect" href="{% static 'users/' %}"/>
+    <link rel="preconnect" href="{% static 'images/' %}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin>
+    
+    {% block links_and_scripts %}
+    {% endblock links_and_scripts %}
+
+    {% comment %} <!-- PRELOAD FONTS --> {% endcomment %}
+    <link rel="preload" href="{% static 'blog/monarda-webfont.woff2' %}" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Manrope" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Raleway" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=DM+Sans" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Cookie" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Cabin" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Great+Vibes" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Secular+One" as="font" type="font/woff2" crossorigin>
+    
+
+    <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+    {% block styles %}
+    {% endblock styles %}
+    
+    <script defer src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <header>
@@ -41,8 +74,8 @@
                             <a href="{% url 'enroll' %}">Enrollment</a>
                         </div>
                         <div class="dropdown_items">
-                            <a href="{% url 'faqs' %}"><img src="{% static 'images/never_stop_learning.webp' %}" alt="curriculum"></a>
-                            <a href="{% url 'faqs' %}">Fees</a>
+                            <a href="{% url 'fees' %}"><img src="{% static 'images/never_stop_learning.webp' %}" alt="curriculum"></a>
+                            <a href="{% url 'fees' %}">Fees</a>
                         </div>
                         <div class="dropdown_items">
                             <a href="{% url 'faqs' %}"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
@@ -71,10 +104,10 @@
                             <a href="{% url 'tag_events' %}?tag=Open%20Day"><img src="{% static 'images/never_stop_learning.webp' %}" alt="pupils"></a>
                             <a href="{% url 'tag_events' %}?tag=Open%20Day">Open events</a>
                         </div>
-                        <div class="dropdown_items">
+                        {% comment %} <div class="dropdown_items">
                             <a href="{% url 'policies' %}"><img src="{% static 'images/enroll.webp' %}" alt="enroll"></a>
                             <a href="{% url 'policies' %}">Newsroom</a>
-                        </div>
+                        </div> {% endcomment %}
                         <div class="dropdown_items">
                             <a href="#"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
                             <a href="">Leadership</a>
@@ -151,8 +184,8 @@
             </div>
             <div class="drop">
                 <div class="drop_item"><a href="{% url 'enroll' %}">Enrollment</a></div>
-                <div class="drop_item"><a href="{% url 'enroll' %}">Fees</a></div>
-                <div class="drop_item"><a href="{% url 'faqs' %}">FAQ's</a></div>
+                <div class="drop_item"><a href="{% url 'fees' %}">Fees</a></div>
+                <div class="drop_item"><a href="{% url 'faqs' %}">FAQs</a></div>
                 {% if not request.user.is_authenticated %}
                     <div class="drop_item"><a href="{% url 'contact' %}">Contact us</a></div>
                 {% else %}
@@ -169,7 +202,7 @@
                 <div class="drop_item"><a href="{% url 'policies' %}">School Policies</a></div>
                 <div class="drop_item"><a href="{% url 'jobs' %}">Jobs and Hiring</a></div>
                 <div class="drop_item"><a href="{% url 'tag_events' %}?tag=Open%20Day">Open events</a></div>
-                <div class="drop_item"><a href="">Newsroom</a></div>
+                {% comment %} <div class="drop_item"><a href="">Newsroom</a></div> {% endcomment %}
                 <div class="drop_item"><a href="">Leadership</a></div>
             </div>     
         </div>
@@ -233,7 +266,6 @@
     </footer>
 </body>
 
-<script src="{% static 'users/jquery-3.6.1.min.js' %}"></script>
 <script>
 
     function getCookie(name) {

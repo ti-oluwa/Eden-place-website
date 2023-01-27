@@ -6,6 +6,11 @@
     <title>Contact Us . Eden Place</title>
 {% endblock title %}
 
+{% block links_and_scripts %}
+    <link rel="preconnect" href="https://maps.google.com" crossorigin>
+    <link rel="dns-prefetch" href="https://maps.google.com" crossorigin>
+{% endblock links_and_scripts %}
+
 {% block styles %}
     <link rel="stylesheet" href="../../static/blog/contact.css">
 {% endblock styles %}
@@ -20,7 +25,7 @@
             <div class="map">
                 <div class="mapouter">
                     <div class="gmap_canvas">
-                        <iframe class="gmap_iframe" title="Eden Place's location as shown on Google maps" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=6.774690, 3.403056&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe><a href="https://mcpedls.com/">minecraft download</a>
+                        <iframe class="gmap_iframe" title="Eden Place's location as shown on Google maps" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=6.774690, 3.403056&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
                     </div>
                     <style>.mapouter{position:relative;text-align:right;width:100%;height:100%;}.gmap_canvas {overflow:hidden;background:none!important;width:100%;height:100%;}.gmap_iframe {height:100%!important;}</style>
                 </div>
@@ -78,7 +83,7 @@
                     For all other enquiries, please contact our Reception team on +2348037383740 or email
                 </p>
                 <a href="" class="apply_btn" style="background-color: var(--button-bg-color-active);">
-                    Email Communications Team
+                    Email Communications
                     <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
                 </a>
             </div>
@@ -86,3 +91,28 @@
     </div>
     
 {% endblock content %}
+
+{% block script %}
+    <script>
+        window.addEventListener('load', () => {
+            let all_section = document.querySelectorAll('.section');
+
+            const section_observer = new IntersectionObserver((entries)=>{
+                entries.forEach((entry) => {
+                    if(entry.isIntersecting){
+                        entry.target.classList.add('slide_up');
+                    }
+                })
+            });
+
+            all_section.forEach((section) => {
+                var delay = 0;
+                for(let i = 0; i < section.children.length; i++){
+                    section.children[i].style.animationDelay = `${delay}s`;
+                    section_observer.observe(section.children[i]);
+                    delay += 0.1;
+                };
+            });
+        });
+    </script>
+{% endblock script %}

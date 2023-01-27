@@ -1,33 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Manrope');
-@import url('https://fonts.googleapis.com/css?family=Raleway');
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
-@import url('https://fonts.googleapis.com/css?family=DM+Sans');
-@import url('https://fonts.googleapis.com/css?family=Cabin');
-@import url('https://fonts.googleapis.com/css?family=Secular+One');
-@import url('https://fonts.googleapis.com/css?family=Anton');
-@import url('https://fonts.googleapis.com/css?family=Cookie');
-@import url('https://fonts.googleapis.com/css?family=Great+Vibes');
-@import url('https://fonts.googleapis.com/css2?family=Vesper+Libre&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Scope+One&family=Vesper+Libre&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Manrope&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=DM+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cabin&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Secular+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Cookie&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes&display=swap');
 
 
 @font-face {
     font-family: 'Monarda';
-    src: url('monarda-webfont.woff2') format('woff2'),
-         url('monarda-webfont.woff') format('woff');
+    src: url('monarda-webfont.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-
+    display: swap;
 }
-
-@font-face {
-    font-family: 'Billie Sight';
-    src: url('billie-sight.otf') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
 
 
 :root{
@@ -193,6 +180,10 @@ button:disabled{
     background-color: rgba(31,31,31,0.35);
 }
 
+p span{
+    font: inherit;
+}
+
 .showcase_text p:first-of-type{
     font-size: clamp(16px, 2vw, 24px);
     font-weight: clamp(530, 2vw,600);
@@ -206,10 +197,9 @@ button:disabled{
     font-weight: clamp(530, 2vw,600);
     color: #f1f3f5;
     font-family: 'Manrope';
-    opacity: 0;
-    transform: translateY(50px);
-    animation-delay: 1s !important;
+    overflow: hidden !important;    
 }
+
 
 .showcase_text h1{
     font-size: clamp(36px, 5vw, 66px);
@@ -901,6 +891,10 @@ button:disabled{
     .upcoming_body_item, .recents_body .upcoming_body_item{
         width: 150px !important;
         height: 280px;
+    }
+
+    .showcase_text p{
+        max-width: 100% !important;
     }
 }
     
