@@ -371,7 +371,12 @@ button:disabled{
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    overflow-x: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.item_content p:first-of-type::-webkit-scrollbar{
+    display: none !important;
 }
 
 .item_content p:first-of-type a{

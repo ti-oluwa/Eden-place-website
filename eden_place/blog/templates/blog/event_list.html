@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    <title>{{ tag|title }} Events . Eden Place</title>
+    <title>{{ tag|title }} Events &#x2022; Eden Place</title>
 {% endblock title %}
 
 {% block styles %}
@@ -40,7 +40,7 @@
                         </div>
                         <div class="item_content">
                             <p>
-                                {% for tag in event.tags.all %}
+                                {% for tag in event.tags.all|slice:":8" %}
                                     <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name|title }}</a>,  
                                 {% endfor %}
                             </p>

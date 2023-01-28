@@ -11,6 +11,8 @@ urlpatterns = [
     path('contact/', TemplateView.as_view(template_name='blog/contact.html'), name='contact'),
     path('faqs/', FaqView.as_view(), name='faqs'),
     path('policies/', TemplateView.as_view(template_name='blog/policies.html'), name='policies'),
+    path('privacy/', TemplateView.as_view(template_name='blog/privacy.html'), name='privacy'),
+    path('site-map/', TemplateView.as_view(template_name='blog/site_map.html'), name='site_map'),
     path('fees/', TemplateView.as_view(template_name='blog/fees.html'), name='fees'),
     path('jobs/', JobListView.as_view(), name='jobs'),
     path('events/', EventsListView.as_view(), name='events'),

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{% static 'blog/enroll.css' %}">
 {% endblock styles %}
  {% block title %}   
-    <title>Enrollment . Eden Place</title>
+    <title>Enrollment &#x2022; Eden Place</title>
 {% endblock title %}
 
 {% block content %}
@@ -29,13 +29,17 @@
             
             <div class="showcase_text">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam at quod cupiditate tempore quis rem natus porro 
-                    quibusdam, voluptate quia? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam at quod cupiditate tempore quis rem natus porro 
-                    quibusdam, voluptate quia?
+                    We are thrilled that you are interested in enrolling your child at our primary school. 
+                    We are dedicated to providing an exceptional education for all of our pupils and we are excited to welcome your family to our school community.
                 </p>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam at quod cupiditate tempore quis rem natus porro 
-                    quibusdam, voluptate quia?
+                    The enrollment and admissions process is designed to be as simple and straightforward as possible. 
+                    To begin the process, please visit our website to submit an application form. Once we receive your application, we will schedule an interview with you and your child. 
+                    This is an opportunity for you to meet with our staff, learn more about our school and ask any questions you may have. 
+                    After the interview, we will let you know if your child has been accepted and provide you with information on the next steps in the enrollment process. 
+                    We understand that choosing a school for your child is an important decision and we are here to help you through the process. 
+                    If you have any questions or need assistance, please do not hesitate to <a href="{% url 'contact' %}" style="color: var(--text-color-sec); text-decoration: underline;">contact us</a>. 
+                    We look forward to welcoming you and your child to our school!
                 </p>
             </div>
             <div class="quick_nav">
@@ -55,7 +59,7 @@
             <div class="quote">
                 <p class="quotation_mark">''</p>
                 <p class="quote_text">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, tenetur?
+                    Emphasis on building strong character in pupils is evident in the way Eden Place pupils conduct themselves and in their academic achievements.
                 </p>
             </div>
             <p class="from">The Good Schools</p>
@@ -74,9 +78,12 @@
                 <div class="section_text">
                     <p class="text_head">First steps...</p>
                     <p class="text_body">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione perferendis earum est at libero. 
-                        Fugit maiores repellat, delectus quo suscipit numquam tempore hic excepturi quae ipsa esse. Id eius repellendus laborum officia est quod ut
-                         harum mollitia rem beatae facere atque, laudantium iste sapiente consectetur quae repellat quibusdam necessitatibus. Voluptas!
+                        We are excited that you are considering enrolling your child in our school. 
+                        The enrollment process is designed to be as simple and straightforward as possible. 
+                        To begin the process, You can fill and submit an application form or <a href="https://maps.google.com/maps/dir//6.77469,3.403056/@6.77469,3.403056,17z" style="color: var(--text-color-sec); text-decoration: underline;">register physically</a>. 
+                        Once we receive your application, we will schedule an interview with you and your child. 
+                        This is an opportunity for you to meet with our staff, learn more about our school and ask any questions you may have. 
+                        After the interview, we will let you know if your child has been accepted and provide you with information on the next steps in the enrollment process.
                     </p>
                 </div>
                 <div class="section_image">
@@ -90,21 +97,21 @@
             <div class="section_columns">
                 <div class="columns">
                     <h3>1+ Entry (Reception)</h3>
-                    <h5>Application and entry for 2023 session is now open</h5>
+                    <h5>Application and entry for {% now "Y" %} session is now open</h5>
                     <hr>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tempora, provident nostrum ex sit nobis ducimus facilis quis earum iusto!</p>
                     <b>Application for entry is open</b>
                 </div>
                 <div class="columns">
                     <h3>3+ Entry (Kindergaten)</h3>
-                    <h5>Admission for 2023 session is ongoing</h5>
+                    <h5>Admission for {% now "Y" %} session is ongoing</h5>
                     <hr>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga odio sequi vero temporibus quas hic eius sed vitae in nam?</p>
                     <b>Admission is ongoing</b>
                 </div>
                 <div class="columns">
                     <h3>Occasional Vacancies</h3>
-                    <h5>Admission for 2023 session is ongoing</h5>
+                    <h5>Admission for {% now "Y" %} session is ongoing</h5>
                     <hr>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, molestias fugiat dolore quos quibusdam repellendus atque. 
                         Modi ratione, reprehenderit optio, aut praesentium tempore atque enim consequatur 
@@ -124,7 +131,7 @@
                 <img src="{% static 'images/right_arrow.svg' %}" alt="move forwards" class="move_forwards">
 
                 <div class="slide_indicator">
-                    <p>1</p>
+                    <p class="active_ind">1</p>
                     <p>2</p>
                     <p>3</p>
                 </div>
@@ -167,10 +174,10 @@
                 <div class="quote_sub">
                     <p class="quotation_mark_sub">''</p>
                     <p class="quote_text_sub">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos, tenetur?
+                        Their commitment to creating a diverse and inclusive community is evident in every aspect of their curriculum and culture.
                     </p>
                 </div>
-                <p class="from_sub">The Good Schools</p>
+                <p class="from_sub">Educate.Org</p>
             </div>
             
         </section>
@@ -188,9 +195,13 @@
                 <div class="section_text">
                     <p class="text_head">First steps...</p>
                     <p class="text_body">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione perferendis earum est at libero. 
-                        Fugit maiores repellat, delectus quo suscipit numquam tempore hic excepturi quae ipsa esse. Id eius repellendus laborum officia est quod ut
-                         harum mollitia rem beatae facere atque, laudantium iste sapiente consectetur quae repellat quibusdam necessitatibus. Voluptas!
+                        To begin the process, You can fill and submit an application form or <a href="https://maps.google.com/maps/dir//6.77469,3.403056/@6.77469,3.403056,17z" style="color: var(--text-color-sec); text-decoration: underline;">register physically</a>. 
+                        Once we receive your application, we will schedule an interview with you and your child. 
+                        This is an opportunity for you to meet with our staff, learn more about our school, and ask any questions you may have. 
+                        After the interview, we will inform you of the decision and provide you with information on the next steps in the enrollment process. 
+                        We understand that choosing a school for your child is an important decision and we are here to help you through the process. 
+                        If you have any questions or need assistance, please do not hesitate to <a href="{% url 'contact' %}" style="color: var(--text-color-sec); text-decoration: underline;">contact us</a>. 
+                        We look forward to welcoming you and your child to our school!
                     </p>
                 </div>
                 <div class="section_image">
@@ -204,21 +215,21 @@
             <div class="section_columns">
                 <div class="columns">
                     <h3>3+ Entry (Nursery 1)</h3>
-                    <h5>Application and entry for 2023 session is now open</h5>
+                    <h5>Application and entry for {% now "Y" %} session is now open</h5>
                     <hr>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tempora, provident nostrum ex sit nobis ducimus facilis quis earum iusto!</p>
                     <b>Application for entry is open</b>
                 </div>
                 <div class="columns">
                     <h3>5+ Entry (Nursery 2)</h3>
-                    <h5>Admission for 2023 session is ongoing</h5>
+                    <h5>Admission for {% now "Y" %} session is ongoing</h5>
                     <hr>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga odio sequi vero temporibus quas hic eius sed vitae in nam?</p>
                     <b>Admission is ongoing</b>
                 </div>
                 <div class="columns">
                     <h3>Occasional Vacancies</h3>
-                    <h5>Admission for 2023 session is ongoing</h5>
+                    <h5>Admission for {% now "Y" %} session is ongoing</h5>
                     <hr>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, molestias fugiat dolore quos quibusdam repellendus atque. 
                         Modi ratione, reprehenderit optio, aut praesentium tempore atque enim consequatur 
@@ -238,7 +249,7 @@
                 <img src="{% static 'images/right_arrow.svg' %}" alt="move forwards" class="move_forwards">
 
                 <div class="slide_indicator">
-                    <p>1</p>
+                    <p class="active_ind">1</p>
                     <p>2</p>
                     <p>3</p>
                 </div>
@@ -303,9 +314,11 @@
                 <div class="section_text">
                     <p class="text_head">First steps...</p>
                     <p class="text_body">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione perferendis earum est at libero. 
-                        Fugit maiores repellat, delectus quo suscipit numquam tempore hic excepturi quae ipsa esse. Id eius repellendus laborum officia est quod ut
-                         harum mollitia rem beatae facere atque, laudantium iste sapiente consectetur quae repellat quibusdam necessitatibus. Voluptas!
+                        We are interested in the individual, so we meet every child who would like to join our school. 
+                        Our priority is always to ensure our admissions process  and fun and stimulating for your ward and simple and stress-free for parents.
+                        After the interview, we will let you know if your child has been accepted and provide you with information on the next steps in the enrollment process.
+                        You can fill and submit an application form or <a href="https://maps.google.com/maps/dir//6.77469,3.403056/@6.77469,3.403056,17z" style="color: var(--text-color-sec); text-decoration: underline;">register physically</a>. 
+                        Once we receive your application, we will schedule an interview with you and your child. 
                     </p>
                 </div>
                 <div class="section_image">
@@ -319,21 +332,21 @@
             <div class="section_columns">
                 <div class="columns">
                     <h3>7+ Entry (Lower Primary)</h3>
-                    <h5>Application and entry for 2023 session is now open</h5>
+                    <h5>Application and entry for {% now "Y" %} session is now open</h5>
                     <hr>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse tempora, provident nostrum ex sit nobis ducimus facilis quis earum iusto!</p>
                     <b>Application for entry is open</b>
                 </div>
                 <div class="columns">
                     <h3>9+ Entry (Upper Primary)</h3>
-                    <h5>Admission for 2023 session is ongoing</h5>
+                    <h5>Admission for {% now "Y" %} session is ongoing</h5>
                     <hr>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga odio sequi vero temporibus quas hic eius sed vitae in nam?</p>
                     <b>Admission is ongoing</b>
                 </div>
                 <div class="columns">
                     <h3>Occasional Vacancies</h3>
-                    <h5>Admission for 2023 session is ongoing</h5>
+                    <h5>Admission for {% now "Y" %} session is ongoing</h5>
                     <hr>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, molestias fugiat dolore quos quibusdam repellendus atque. 
                         Modi ratione, reprehenderit optio, aut praesentium tempore atque enim consequatur 
@@ -353,7 +366,7 @@
                 <img src="{% static 'images/right_arrow.svg' %}" alt="move forwards" class="move_forwards">
 
                 <div class="slide_indicator">
-                    <p>1</p>
+                    <p class="active_ind">1</p>
                     <p>2</p>
                     <p>3</p>
                 </div>
@@ -492,7 +505,7 @@
 
         const slide_observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting){   
+                if (entry.isIntersecting){
                     var reached_end = to_bool(entry.target.querySelectorAll('.img')[0].id);
                     entry.target.id = setInterval(() => {
                         if(reached_end){
@@ -517,6 +530,8 @@
             });
         });
 
+        
+
         slideshows.forEach(slideshow => {
             let showcase_img = slideshow.querySelector('.showcase_img')
             slide_observer.observe(showcase_img);
@@ -538,6 +553,18 @@
                     }  
                 };
             });
+
+            showcase_img.addEventListener('scroll', () => {
+                let visible_img_no = Math.ceil( (showcase_img.scrollLeft + slideshow.clientWidth) / slideshow.clientWidth )
+                let inds = slideshow.querySelectorAll('.slide_indicator p');
+                inds.forEach((indicator, index) => {
+                    if(index == visible_img_no - 1){
+                        indicator.classList.add('active_ind');
+                    }else{
+                        indicator.classList.remove('active_ind');
+                    }
+                })
+            })
         });
 
         slide_indicators.forEach((indicator) => {

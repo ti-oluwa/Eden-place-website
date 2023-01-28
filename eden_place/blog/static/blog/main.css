@@ -434,7 +434,7 @@ header{
     position: fixed;
     top: 62px;
     left: 50%;
-    transform: translateX(-50%) !important;
+    transform: translate(-50%, -20px);
     padding: 20px;
     display: none;
     gap: 0 50px;
@@ -452,11 +452,11 @@ header{
 @keyframes dropdown{
     0%{
         opacity: 0;
-        top: 40px;
+        transform: translate(-50%, -20px);
     }
     100%{
         opacity: 1;
-        top: 62px;
+        transform: translate(-50%, 0px);
     }
 }
 

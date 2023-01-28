@@ -180,7 +180,12 @@ button:disabled{
     font-weight: 600;
     font-size: clamp(12px, 2vw, 16px);
     border-radius: 50px;
-    margin-block: 40px;
+    margin-block: clamp(5px, 2vw, 10px);
+}
+
+.download_btn:nth-child(odd){
+    background-color: var(--text-color-sec);
+    /* color: var(--text-color); */
 }
 
 .download_btn img{

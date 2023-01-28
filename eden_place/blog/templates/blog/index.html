@@ -6,7 +6,7 @@
 {% endblock styles %}
 
 {% block title %}
-    <title>Home . Eden Place</title>
+    <title>Home &#x2022; Eden Place</title>
 {% endblock title %}
 
 {% block links_and_scripts %}
@@ -81,6 +81,7 @@
             </div>
         </div>
 
+        {% if upcoming_events %}
         <div class="upcoming">
             <div class="upcoming_head">
                 <h1>Upcoming Events</h1>
@@ -94,7 +95,7 @@
                         </div>
                         <div class="item_content">
                             <p>
-                                {% for tag in event.tags.all %}
+                                {% for tag in event.tags.all|slice:":8" %}
                                     <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name }}</a>, 
                                 {% endfor %}
                             </p>
@@ -113,7 +114,9 @@
             <a href="{% url 'tag_events' %}?tag=Upcoming" class="view_all_btn">View All <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(10px, 2vw, 15px); height: clamp(10px, 2vw, 15px);"></a>
 
         </div>
+        {% endif %}
 
+        {% if recent_events %}
         <div class="recents_head">
             <h1>Recent News</h1>
         </div>
@@ -127,7 +130,7 @@
                         </div>
                         <div class="item_content">
                             <p>
-                                {% for tag in event.tags.all %}
+                                {% for tag in event.tags.all|slice:":8" %}
                                     <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name }}</a>, 
                                 {% endfor %}
                             </p>
@@ -140,6 +143,7 @@
 
             <a href="{% url 'tag_events' %}?tag=All" class="view_all_btn">View All <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(10px, 2vw, 15px); height: clamp(10px, 2vw, 15px);"></a>
         </div>
+        {% endif %}
 
     </div>
 {% endblock content %}
@@ -239,7 +243,7 @@
 
         var det_imgs = document.querySelectorAll('.det_img');
         var det_texts = document.querySelectorAll('.det_text');
-        var recent_items = document.querySelector('.recents_body').querySelectorAll('.upcoming_body_item');
+        var recent_items = document.querySelectorAll('.recents_body .upcoming_body_item');
 
         const observer = new IntersectionObserver((entries)=>{
             entries.forEach(entry => {
@@ -272,10 +276,12 @@
             });
         });
 
-        recent_items.forEach(item => {
-            recent_observer.observe(item);
-        });
-
+        if(recent_items.length > 0){
+            recent_items.forEach(item => {
+                recent_observer.observe(item);
+            });
+        }
+        
         let upcoming_body = document.querySelector('.upcoming_body');
         if (upcoming_body){
             let upcoming_body_item = document.querySelectorAll('.upcoming_body_item');

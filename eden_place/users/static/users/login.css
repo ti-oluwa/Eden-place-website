@@ -209,6 +209,7 @@ button:disabled{
     color: var(--text-muted-color);
     width: 100%;
     margin: 20px 0;
+    cursor: pointer;
 }
 
 #login_btn:hover{

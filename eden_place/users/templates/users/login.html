@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up | Login</title>
+    <title>Login &#x2022; Eden Place</title>
     {% load static %}
 
     <link rel="icon" type="image/x-icon" href="{% static 'images/edenplace-logo.webp' %}">
@@ -24,14 +24,14 @@
      <link rel="preload" href="https://fonts.googleapis.com/css?family=DM+Sans" as="font" type="font/woff2" crossorigin>
 
     <link rel="stylesheet" type="text/css" href="{% static '/users//login.css' %}">
-    <script defer src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    
 </head>
 <body>
     <main class="container">
-        {% for message in messages %}
+        {% comment %} {% for message in messages %}
             <div>{{ message }}</div>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
         
         <div id="login">
             <h1>Sign in</h1>

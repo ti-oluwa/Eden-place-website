@@ -6,7 +6,7 @@
 {% endblock styles %}
 
 {% block title %}
-    <title>Events . Eden Place</title>
+    <title>Events &#x2022; Eden Place</title>
 {% endblock title %}
 
 {% block content %}
@@ -43,7 +43,7 @@
                         </div>
                         <div class="item_content">
                             <p>
-                                {% for tag in event.tags.all %}
+                                {% for tag in event.tags.all|slice:":3" %}
                                     <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name|title }}</a>, 
                                 {% endfor %}
                             </p>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="item_content">
                             <p>
-                                {% for tag in event.tags.all %}
+                                {% for tag in event.tags.all|slice:":8" %}
                                     <a href="{% url 'tag_events' %}?tag={{ tag.name }}">{{ tag.name|title }}</a>,  
                                 {% endfor %}
                             </p>

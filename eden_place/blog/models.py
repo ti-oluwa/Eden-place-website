@@ -112,7 +112,7 @@ class Event(models.Model):
 
 
 class Faq(models.Model):
-    question = models.TextField(max_length=150)
+    question = models.TextField(max_length=100)
     answer = models.TextField(max_length=1024)
     date_added = models.DateTimeField(default=timezone.now)
 
@@ -121,3 +121,9 @@ class Faq(models.Model):
         
     def __str__(self):
         return self.question[:20]+'...?' 
+
+    def save(self, *args, **kwargs):
+        if not Faq.objects.filter(question__icontains=self.question).exists():
+            return super().save(*args, **kwargs)
+        else:
+            pass

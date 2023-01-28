@@ -1,0 +1,80 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'blog/site_map.css' %}">
+{% endblock styles %}
+
+{% block title %}
+    <title>Site map &#x2022; Eden Place</title>
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container">
+        <section class="main_section">
+            <h1>Site Map</h1>
+            <p>
+                Welcome to our site map page! Here, you'll find a comprehensive list of all the pages on our website, 
+                organized by category to make it easy for you to find what you're looking for. 
+                Whether you're looking for information on our services or school history, you'll find it here. 
+                If you have any trouble finding what you need, please don't hesitate to contact us.
+            </p>
+
+            <a href="{% url 'home' %}" class="download_btn">
+                Home
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="{% url 'about' %}" class="download_btn">
+                About Eden Place
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="{% url 'enroll' %}" class="download_btn">
+                Enroll your ward
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="{% url 'contact' %}" class="download_btn">
+                Contact us
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="{% url 'faqs' %}" class="download_btn">
+                Frequently asked questions
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="{% url 'fees' %}" class="download_btn">
+                School fees
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="{% url 'events' %}" class="download_btn">
+                Life at Eden Place
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="{% url 'policies' %}" class="download_btn">
+                School policies
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="{% url 'jobs' %}" class="download_btn">
+                Work with us
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="https://maps.google.com/maps/dir//6.77469,3.403056/@6.77469,3.403056,17z" class="download_btn">
+                Locate us
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+
+            <a href="{% url 'privacy' %}" class="download_btn">
+                Privacy
+                <img src="{% static 'images/left-arrow.svg' %}" alt="" style="width: clamp(14px, 2vw, 16px); height: clamp(14px, 2vw, 16px);">
+            </a>
+        </section>
+    </div>
+{% endblock content %}

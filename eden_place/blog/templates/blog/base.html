@@ -43,7 +43,7 @@
     {% block styles %}
     {% endblock styles %}
     
-    <script defer src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -108,10 +108,10 @@
                             <a href="{% url 'policies' %}"><img src="{% static 'images/enroll.webp' %}" alt="enroll"></a>
                             <a href="{% url 'policies' %}">Newsroom</a>
                         </div> {% endcomment %}
-                        <div class="dropdown_items">
+                        {% comment %} <div class="dropdown_items">
                             <a href="#"><img src="{% static 'images/curriculum.webp' %}" alt="curriculum"></a>
                             <a href="">Leadership</a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
 
@@ -203,7 +203,7 @@
                 <div class="drop_item"><a href="{% url 'jobs' %}">Jobs and Hiring</a></div>
                 <div class="drop_item"><a href="{% url 'tag_events' %}?tag=Open%20Day">Open events</a></div>
                 {% comment %} <div class="drop_item"><a href="">Newsroom</a></div> {% endcomment %}
-                <div class="drop_item"><a href="">Leadership</a></div>
+                {% comment %} <div class="drop_item"><a href="">Leadership</a></div> {% endcomment %}
             </div>     
         </div>
         
@@ -257,11 +257,11 @@
         </div>
         <div class="additional">
             <div class="additional_links">
-                <a href="">Privacy policy</a>
-                <a href="{% url 'contact' %}">Contact us</a>
-                <a href="">Site map</a>
+                <a href="{% url 'privacy' %}">Privacy policy</a>
+                <a href="{% url 'jobs' %}">Work with us</a>
+                <a href="{% url 'site_map' %}">Site map</a>
             </div>
-            <p>Copyright &copy; 2022, <a href="https://bit.ly/dev_tioluwa">ti_oluwa</a></p>
+            <p>Copyright &copy; {% now "Y" %}, <a href="https://bit.ly/dev_tioluwa">ti_oluwa</a></p>
         </div>
     </footer>
 </body>
@@ -304,45 +304,46 @@
     let main_menu = document.querySelector('.main_menu');
     let header = document.querySelector('header');
 
-    function setHeaderHeight(){
+    function setMainMenuHeight(){
         setTimeout(() => {
             main_menu.style.top = header.offsetHeight + 'px';
             main_menu.style.height = window.innerHeight - header.clientHeight + 'px';
         }, 100);
     }
+    
+    function setDropdownPosition(){
+        let header_dropdowns = document.querySelectorAll('.dropdown');
 
-    document.addEventListener('load', () => {
-        // sets the height of the main menu to the height of the header
-        setHeaderHeight();
-    });
+        header_dropdowns.forEach((dropdown) => {
+            setTimeout(()=>{
+                dropdown.style.top = header.clientHeight * 0.7 + 'px';
+            }, 100);
+        });
+    };
+
 
 
     // collapses the header on scroll
     window.addEventListener('scroll', () => {
         let school_logo = document.querySelector('.header_logo a img');
         let menu_p = document.querySelector('.hamburger_container p');
-        let header_dropdowns = document.querySelectorAll('.dropdown');
 
         if (window.scrollY > 10){
             header.classList.add('header_collapse');
             school_logo.classList.add('shrink');
             menu_p.classList.add('flip_inwards_right');
             menu_p.classList.remove('flip_outwards_right');
-            setHeaderHeight();
+            setMainMenuHeight();
         } else {
             header.classList.remove('header_collapse');
             school_logo.classList.remove('shrink');
             menu_p.classList.add('flip_outwards_right');
             menu_p.classList.remove('flip_inwards_right');
-            setHeaderHeight();
+            setMainMenuHeight();
         }
 
-        // collapses the dropdowns on scroll
-        header_dropdowns.forEach((dropdown) => {
-            setTimeout(()=>{
-                dropdown.style.top = header.offsetHeight * 0.7 + 'px';
-            }, 100)
-        });
+        // set dropdown position on scroll
+        setDropdownPosition();
     
     });
 
@@ -350,7 +351,10 @@
 
     //sets height of main menu on resize
     window.addEventListener('resize', () => {
-        document.querySelector('.main_menu').style.height = (window.innerHeight - 90)+ 'px'
+        document.querySelector('.main_menu').style.height = (window.innerHeight - 90)+ 'px';
+
+        // set dropdown position on resize
+        setDropdownPosition()
     });
 
     window.addEventListener('load', () => {
@@ -359,6 +363,13 @@
         document.getElementById('nav_cb').addEventListener('click', () => {
             document.getElementsByClassName('nav_collapse')[0].classList.toggle('show');
         });
+
+        // sets the height of the main menu to the height of the header
+        setMainMenuHeight();
+
+        // set dropdown position on load
+        setDropdownPosition();
+
 
         // close nav_collapse on hover of other header links
         document.querySelectorAll('.header_link')[2] && document.querySelectorAll('.header_link')[3].addEventListener('pointerover', () => {
