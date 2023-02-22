@@ -17,7 +17,7 @@ admistration, staff and pupils of the school.**
 - Python >=3.10
 - Django ==4.1
 
-View the project's [requirements.txt](https://github.com/ti-oluwa/Eden-place-website/) file for more
+View the project's [requirements.txt](https://github.com/ti-oluwa/Eden-place-website/blob/master/requirements.txt) file for more
 
 ### Setting up the project locally
 Take the following steps to run the website on your localhost:
