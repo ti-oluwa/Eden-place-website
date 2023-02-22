@@ -10,6 +10,7 @@ from django.utils import timezone
 import datetime
 from zoneinfo import ZoneInfo
 from django.conf import settings
+from urllib import parse
 
 class EventCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     form_class = EventCreateForm
@@ -174,12 +175,12 @@ class TagEventListView(ListView):
     def get_queryset(self):
         if self.request.GET.get('tag').lower() == 'all':
             return self.model.objects.all().order_by('-date')
-        return self.model.objects.filter(tags__name=self.request.GET.get('tag')).order_by('-date')
+        return self.model.objects.filter(tags__name__iexact=parse.unquote(self.request.GET.get('tag'))).order_by('-date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['website_domain'] = settings.WEBSITE_DOMAIN
-        context['tag'] = self.request.GET.get('tag')
+        context['tag'] = parse.unquote(self.request.GET.get('tag'))
         return context
 
 

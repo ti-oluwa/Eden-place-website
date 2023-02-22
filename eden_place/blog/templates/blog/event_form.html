@@ -474,7 +474,7 @@
         if (publish_btn.contains(event.target)){
             event.stopImmediatePropagation();
             publish_btn.style.opacity = '0.8';
-            publish_btn.style.pointerEvents = 'None';
+            publish_btn.style.pointerEvents = 'none';
             let event_data = new FormData;
             let title = document.querySelector('#title');
             let event_content = document.querySelector('#content');
@@ -516,6 +516,8 @@
                 success: (response) => {
                     if (!response['success']){
                         alert('Could not publish event')
+                        publish_btn.style.opacity = '1';
+                        publish_btn.style.pointerEvents = 'auto';
                     }else{
                         slug = response['event_slug'];
                         window.location.href = `/events/${slug}` ;

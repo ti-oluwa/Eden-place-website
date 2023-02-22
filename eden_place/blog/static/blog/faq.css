@@ -214,8 +214,9 @@ button:disabled{
 
 .faq h3{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    width: 100%;
     gap: 10px;
     font-size: clamp(14px, 2vw, 16px);
     font-family: 'Raleway';

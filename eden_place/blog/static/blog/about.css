@@ -683,7 +683,8 @@ button:disabled{
     align-items: center;
     gap: 10px;
     text-align: center;
-    /* opacity: 0; */
+    opacity: 0;
+    overflow: hidden !important;
 
 }
 
@@ -916,7 +917,6 @@ button:disabled{
 
     .meet_the_head .section_body .section_details{
         width: 100%;
-        max-width: 100%;
         padding: 0 20px;
         order: 2;
     }
@@ -951,6 +951,10 @@ button:disabled{
 
     .showcase_img .img .main_card h3{
         font-size: 12px;
+    }
+
+    .meet_the_head .section_body .section_details{
+        padding: 0;
     }
 
     .meet_the_head .section_body .head_img{
