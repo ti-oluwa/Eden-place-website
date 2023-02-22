@@ -24,6 +24,7 @@ Take the following steps to run the website on your localhost:
 
 - Make sure you have python installed on your system
 - Clone the repository.
+- Ensure you are on the `master` branch by running `git checkout master`.
 - In the base diirectory, run `python -m venv venv` to create a virtual environment or create any virtual environment of your choice.
 - Run `venv\scripts\activate.bat` on Windows, or `source venv\bin\activate` on Mac, to activate the virtual environment.
 - Run `pip install -r requirements.txt` to install required dependencies, making sure that 'requirements.txt' is in the base directory.
