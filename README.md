@@ -11,6 +11,8 @@ admistration, staff and pupils of the school.**
 - Django
 - HTML3
 - CSS3
+- Javascript
+- JQuery
 
 ### Dependencies
 
